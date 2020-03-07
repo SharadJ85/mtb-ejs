@@ -4,6 +4,7 @@
   "jsRules": {},
   "rulesDirectory": [],
   "rules": {
+    "no-console": [false, "log", "error"],
     "max-line-length": {
       "options": [100]
     },
