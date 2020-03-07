@@ -8,14 +8,16 @@
 
 export class TMDB<T> {
   baseURL() {
-    return "https://api.themoviedb.org/3/movie/";
+    const baseUrl="https://api.themoviedb.org/3/movie/";
+    return baseUrl
   }
   movieId(id: number) {
-    return id + "?";
+    return id
   }
   apikey() {
     const key: string = "d531f0b35e33ab3572f10065361d3ae1";
-    return "api_key=" + key;
+    const apiky="?api_key=" + key
+    return apiky;
   }
 }
 
