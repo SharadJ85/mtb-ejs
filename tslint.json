@@ -5,6 +5,7 @@
   "rulesDirectory": [],
   "rules": {
     "no-console": [false, "log", "error"],
+    "radix": false ,
     "max-line-length": {
       "options": [100]
     },
