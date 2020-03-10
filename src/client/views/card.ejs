@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' href="/card.css" />
+  <base href="card.css">
+</head>
+<div class="row">
+  <div class="example-2 card">
+    <div class="wrapper" style="background: url(<%=imageURL+result.poster_path%>) center/cover no-repeat;">
+      <!-- <div class="wrapper"> -->
+      <div class="header">
+        <ul class="menu-content">
+          <li><a href="#" class="fa fa-heart-o"><span><%= result.vote_average %> </span></a></li>
+        </ul>
+      </div>
+      <div class="data">
+        <div class="content">
+          <span class="author"><%= result.release_date %> </span>
+          <h1 class="title"><a href="#"><%= result.original_title %></a></h1>
+          <p class="text"><%=result.overview%></p>
+          <a href="#" class="button">Read more</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</html>
+
+<!-- 
+  < addStyle("card.css"); %>
+<div class="row" style="max-width: 900px;margin: 50px auto 0;">
+  <div class="poster card" style=" float: left; padding: 0 1.7rem; width: 50%;">
+    <div class="wrapper" style="background: url(<=imageURL+result.poster_path%>) center/cover no-repeat;">
+      <div class="header" style="">
+        <ul class="menu-content" style="">
+          <li><a href="#" class="fa fa-heart-o" style="text-decoration: none;">
+              <span><= result.vote_average %> </span>
+            </a></li>
+        </ul>
+      </div>
+      <div class="data" style="">
+        <div class="content" style="">
+          <span class="author" style=""><= result.release_date %> </span>
+          <h1 class="title" style="font-family: Open Sans, sans-serif;font-weight:300;">
+            <a href="#" style="text-decoration: none;">
+              <= result.original_title %></a></h1>
+          <p class="text" style=""><=result.overview%></p>
+          <a href="#" class="button" style="text-decoration: none;">Read more</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ -->

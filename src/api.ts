@@ -3,8 +3,9 @@ dotenv.config();
 
 /**
  * TURL contains the default API url for 'The Movie DataBase' site
- * @URLmethods perfixLink + movieId + apikey
+ * @URLmethods
  * @method baseURL: default URL
+ * @method genre: type:- | 0: movie| 1: tv
  * @method mediatype: type:- | movie | tv_show | person
  * @method generalFeatures: type:- | popular | now_playing | top_rated
  * @method movieID: movie ID number
@@ -12,12 +13,25 @@ dotenv.config();
  * @method page: generalFeatures(0) page number
  */
 
-export class Turl<T> {
+export default class Turl<T> {
   /**
    * returns baseURL=https://api.themoviedb.org/3/
    */
   baseURL() {
     return "https://api.themoviedb.org/3/";
+  }
+
+  /**
+   * returns genre list
+   * @param type | 0: genre/movie/list | 1: genre/tv/list
+   */
+  genre(type: number) {
+    const types: string[] = ["movie/list", "tv/list"];
+    for (const index in types) {
+      if (parseInt(index) === type) {
+        return "genre/" + types[index];
+      }
+    }
   }
 
   /**
@@ -65,6 +79,6 @@ export class Turl<T> {
    * @param page generalFeatures(0) page number
    */
   page(page: number) {
-    return "&"+page;
+    return "&" + page;
   }
 }
