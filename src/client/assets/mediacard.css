@@ -5,8 +5,6 @@
 }
 
 body {
-    background-image: -webkit-gradient(linear, left top, right top, from(#034378), to(#2d4e68));
-    background-image: linear-gradient(to right, #034378, #2d4e68);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     height: 100vh;
@@ -26,7 +24,7 @@ h3 {
 .background {
     width: 215px;
     height: 300px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0);
     position: relative;
     overflow: hidden;
     box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.2);
@@ -34,40 +32,40 @@ h3 {
 }
 
 
-.card .data .content p {
+.mediacard .data .content p {
     font-size: 15px;
     font-weight: 400;
 }
 
-.card {
-    width: 30%;
+.mediacard {
+    width: max-content;
 }
 
-.card .menu-content {
+.mediacard .menu-content {
     margin: 0;
     padding: 0;
     list-style-type: none;
 }
 
-.card .menu-content::before,
-.card .menu-content::after {
+.mediacard .menu-content::before,
+.mediacard .menu-content::after {
     content: '';
     display: table;
 }
 
-.card .menu-content::after {
+.mediacard .menu-content::after {
     clear: both;
 }
 
-.card .menu-content li {
+.mediacard .menu-content li {
     display: inline-block;
 }
 
-.card .menu-content a {
+.mediacard .menu-content a {
     color: #fff;
 }
 
-.card .menu-content span {
+.mediacard .menu-content span {
     position: absolute;
     left: 50%;
     top: 0;
@@ -78,22 +76,22 @@ h3 {
     transform: translate(-50%, 0);
 }
 
-.card .wrapper {
+.mediacard .wrapper {
     width: 215px;
     height: 300px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0);
     position: relative;
     overflow: hidden;
     border-radius: 4px;
     box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.2);
 }
 
-.card .wrapper:hover .data {
+.mediacard .wrapper:hover .data {
     -webkit-transform: translateY(0);
     transform: translateY(0);
 }
 
-.card .data {
+.mediacard .data {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -105,23 +103,23 @@ h3 {
     transition: transform 0.3s, -webkit-transform 0.3s;
 }
 
-.card .data .content {
+.mediacard .data .content {
     padding: 1em;
     position: relative;
     z-index: 1;
 }
 
-.card .author {
+.mediacard .author {
     font-size: 12px;
 }
 
-.card .title {
+.mediacard .title {
     text-shadow: 2px 2px 4px #000000;
     margin-top: 0px;
     font-weight: 300;
 }
 
-.card .text {
+.mediacard .text {
     height: 70px;
     margin: 0;
     text-shadow: 2px 2px 4px #000000;
@@ -130,11 +128,11 @@ h3 {
   text-overflow: ellipsis; */
 }
 
-.card input[type='checkbox'] {
+.mediacard input[type='checkbox'] {
     display: none;
 }
 
-.card input[type='checkbox']:checked+.menu-content {
+.mediacard input[type='checkbox']:checked+.menu-content {
     -webkit-transform: translateY(-60px);
     transform: translateY(-60px);
 }
@@ -178,8 +176,8 @@ h3 {
 .poster .data {
     filter: none;
     color: #fff;
-    -webkit-transform: translateY(calc(70px + 4em));
-    transform: translateY(calc(70px + 4em));
+    -webkit-transform: translateY(calc(70px + 3.5em));
+    transform: translateY(calc(70px + 3.5em));
 }
 
 .poster .title a {

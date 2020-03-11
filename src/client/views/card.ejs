@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-  <link rel='stylesheet' href="/card.css" />
+  <link rel='stylesheet' href="/mediacard.css" />
 </head>
-<div class="poster card">
+<div class="poster mediacard">
   <div class="wrapper">
     <div class="background" style="background: url(<%=imageURL+result.poster_path%>) center/cover no-repeat;">
     </div>
@@ -14,7 +14,7 @@
     <div class="data">
       <div class="content">
         <span class="author"><%= result.release_date %> </span>
-        <h1 class="title"><a href="#"><%= result.title %></a></h1>
+        <h2 class="title"><a href="#"><%= result.title || result.name%></a></h2>
         <p class="text"><%=result.overview%></p>
         <a href="#" class="button">Read more</a>
       </div>

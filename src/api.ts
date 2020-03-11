@@ -18,7 +18,7 @@ export default class Turl<T> {
    * returns baseURL=https://api.themoviedb.org/3/
    */
   baseURL() {
-    return "https://api.themoviedb.org/3/";
+    return "https://api.themoviedb.org/3/" as string;
   }
 
   /**
@@ -29,7 +29,7 @@ export default class Turl<T> {
     const types: string[] = ["movie/list", "tv/list"];
     for (const index in types) {
       if (parseInt(index) === type) {
-        return "genre/" + types[index];
+        return "genre/" + types[index] as string;
       }
     }
   }
@@ -39,10 +39,10 @@ export default class Turl<T> {
    * @param type | 0: movie | 1: tv | 2: person
    */
   mediatype(type: number) {
-    const types: string[] = ["movie/", "tv/", "person/"];
+    const types: string[] = ["movie", "tv", "person"];
     for (const index in types) {
       if (parseInt(index) === type) {
-        return types[index];
+        return types[index] as string;
       }
     }
   }
@@ -52,10 +52,10 @@ export default class Turl<T> {
    * @param type | 0: popular | 1: now_playing | 2: top_rated
    */
   generalFeatures(type: number) {
-    const types: string[] = ["popular/", "now_playing/", "top_rated/"];
+    const types: string[] = ["popular", "now_playing", "top_rated"];
     for (const index in types) {
       if (parseInt(index) === type) {
-        return types[index];
+        return types[index] as string;
       }
     }
   }
@@ -64,7 +64,7 @@ export default class Turl<T> {
    * @param id type() ID number
    */
   Id(id: number) {
-    return id;
+    return id as number;
   }
 
   /**
@@ -72,13 +72,13 @@ export default class Turl<T> {
    */
   apikey() {
     const key: any = process.env.API_KEY;
-    return "?api_key=" + key;
+    return "?api_key=" + key as string;
   }
 
   /**
    * @param page generalFeatures(0) page number
    */
-  page(page: number) {
-    return "&" + page;
+  page(page: number=1) {
+    return "&page=" + page as string;
   }
 }
