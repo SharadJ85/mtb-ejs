@@ -43,29 +43,34 @@ const imageURL = "http://image.tmdb.org/t/p/original";
 
 // define a route handler for the default home page
 app.get("/", (req: Request, res: Response, next) => {
+console.log("-->-->----home")
   // render the index template
   res.render("index");
 });
 
-app.get("/popular/dev", async (req: Request, res: Response, next) => {
-  // http://api.themoviedb.org/3/movie/popular?api_key=API_KEY
+app.get("/now_playing/dev", async (req: Request, res: Response, next) => {
+console.log("-->-->----popular/dev")
+// http://api.themoviedb.org/3/movie/popular?api_key=API_KEY
   try {
     const popularMovies: string =
       turl.baseURL() +
       turl.mediatype(0) +
-      turl.generalFeatures(0) +
+      turl.generalFeatures(1) +
       turl.apikey();
     const fetchData = await fetch(popularMovies);
     const data = await fetchData.json();
-    res.render("card", { result: data.results[1], imageURL });
+    const generalFeature:string|undefined=turl.generalFeatures(0)
+    res.render("general" , { allResults: data.results, imageURL, type:"Now playing "});
+    console.log(data.results)
   } catch (err) {
     console.log(err)
-    res.send("sorry for the ERROR:"+err)
+    res.send("sorry for the ERROR:-  "+err)
   }
 });
 
 app.get("/popular", async (req: Request, res: Response, next) => {
-  // http://api.themoviedb.org/3/movie/popular?api_key=API_KEY
+console.log("-->-->----popular")
+// http://api.themoviedb.org/3/movie/popular?api_key=API_KEY
   const popularMovies: string =
     turl.baseURL() +
     turl.mediatype(0) +
@@ -77,7 +82,8 @@ app.get("/popular", async (req: Request, res: Response, next) => {
 });
 
 app.get("/now_playing", async (req: Request, res: Response, next) => {
-  const nowPlaying: string =
+console.log("-->-->----now_playing")
+const nowPlaying: string =
     turl.baseURL() +
     turl.mediatype(0) +
     turl.generalFeatures(1) +
@@ -87,7 +93,8 @@ app.get("/now_playing", async (req: Request, res: Response, next) => {
 });
 
 app.get("/top_rated", async (req: Request, res: Response, next) => {
-  const topRated: string =
+console.log("-->-->----top_rated")
+const topRated: string =
     turl.baseURL() +
     turl.mediatype(0) +
     turl.generalFeatures(2) +
@@ -97,7 +104,8 @@ app.get("/top_rated", async (req: Request, res: Response, next) => {
 });
 
 app.get("/genre", async (req: Request, res: Response, next) => {
-  const genre: string = turl.baseURL() + turl.genre(1) + turl.apikey();
+console.log("-->-->----genre")
+const genre: string = turl.baseURL() + turl.genre(1) + turl.apikey();
   const fetchData: Response = await (await fetch(genre)).json();
   res.json(fetchData);
 });
