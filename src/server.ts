@@ -3,12 +3,20 @@ import express, { Response, Request } from "express";
 import fetch from "node-fetch";
 import path from "path";
 import Turl from "./api";
-import { stringify } from "querystring";
-
+//
+//
+//
+//
+//
+//
+//
 // config dotenv and set its path
 dotenv.config({ path: ".." });
-
+//
+// set Expressjs
 const app = express();
+
+// set port number
 const port: number = parseInt(process.env.PORT as string) || 5050;
 
 // Configure Express to use EJS
@@ -28,104 +36,84 @@ app.listen(port, () => {
   console.log(`=========================================`);
   console.log(`=========================================`);
 });
-
-const turl = new Turl();
-const imageURL = "http://image.tmdb.org/t/p/original";
-
+//
+//
+//
+//
+//
 // define a route handler for the default home page
 app.get("/", (req: Request, res: Response, next) => {
   console.log("-->-->----home");
   // render the index template
   res.render("index");
 });
-
+//
+//
+//
+//
+//
+// set api url methods
+const turl = new Turl();
+//
+//
+// set api url query param: general feature
 const featureMap = new Map();
-featureMap.set(turl.generalFeatures(0), turl.generalFeatures(0));
-featureMap.set(turl.generalFeatures(1), turl.generalFeatures(1));
-featureMap.set(turl.generalFeatures(2), turl.generalFeatures(2));
-
+let count: number = 0;
+while (turl.generalFeatures(count)[0]) {
+  const featureType = turl.generalFeatures(count)[0] as string;
+  featureMap.set(featureType, featureType);
+  count++;
+}
+//
+// set api url query param: media type
 const mediaMap = new Map();
-mediaMap.set(turl.mediatype(0), turl.mediatype(0));
-mediaMap.set(turl.mediatype(1), turl.mediatype(1));
-mediaMap.set(turl.mediatype(2), turl.mediatype(2));
+count = 0;
+while (turl.mediatype(count)[0]) {
+  const mediaType = turl.mediatype(count)[0] as string;
+  mediaMap.set(mediaType, mediaType);
+  count++;
+}
 
 app.get(
   "/:media/:generalFeature/:page?",
   async (req: Request, res: Response, next) => {
-    const gFeature = featureMap.get(req.params.generalFeature);
-    const media = mediaMap.get(req.params.media);
-
-    if (!gFeature || !media)
-      res.status(404).send("the input feature is not available!");
-
-    const url: string = `${turl.baseURL()}${media}/${gFeature}${turl.apikey()}${turl.page(parseInt(req.params.page))}`;
-    const fetchData = await (await fetch(url)).json();
-    console.log("URL==" + url);
-    res.render("general", {
-      allResults: fetchData.results,
-      imageURL,
-      type: gFeature
-    });
+    try {
+      console.log(turl.generalFeatures.length);
+      const gFeature = featureMap.get(req.params.generalFeature);
+      const media = mediaMap.get(req.params.media);
+      const page = req.params.page;
+      const imageURL = turl.imageURL(1);
+      const url: string = req.params.page
+        ? `${turl.baseURL()}${media}/${gFeature}${turl.apikey()}${turl.page(
+            parseInt(req.params.page)
+          )}`
+        : `${turl.baseURL()}${media}/${gFeature}${turl.apikey()}`;
+      const fetchData = await (await fetch(url)).json();
+      console.log("-------------------------------");
+      console.log("URL== " + url);
+      console.log("-------------------------------");
+      console.log("feature==", gFeature);
+      console.log("-------------------------------");
+      console.log("media==", media);
+      console.log("-------------------------------");
+      console.log("page==", page);
+      console.log("-------------------------------");
+      res.render("general", {
+        allResults: fetchData.results,
+        imageURL,
+        type: gFeature.replace("_", " "),
+        pageid: fetchData.page,
+        pages:fetchData.total_pages,
+        mediaType:media,
+        generalType:gFeature
+      });
+    } catch (err) {
+      res
+        .status(404)
+        .send(`Sorry for the ${status} error, Error type:- ${err}`);
+    }
   }
 );
-
-// app.get("/now_playing/dev", async (req: Request, res: Response, next) => {
-//   console.log("-->-->----popular/dev");
-//   // http://api.themoviedb.org/3/movie/popular?api_key=API_KEY
-//   try {
-//     const popularMovies: string =
-//       turl.baseURL() +
-//       turl.mediatype(0) +
-//       turl.generalFeatures(1) +
-//       turl.apikey();
-//     const fetchData = await fetch(popularMovies);
-//     const data = await fetchData.json();
-//     const feature: string | undefined = turl.generalFeatures(0);
-//     res.render("general", {
-//       allResults: data.results,
-//       imageURL,
-//       type: "Now playing "
-//     });
-//   } catch (err) {
-//     console.log(err);
-//     res.send("sorry for the ERROR:-  " + err);
-//   }
-// });
-
-// app.get("/popular", async (req: Request, res: Response, next) => {
-//   console.log("-->-->----popular");
-//   // http://api.themoviedb.org/3/movie/popular?api_key=API_KEY
-//   const popularMovies: string =
-//     turl.baseURL() +
-//     turl.mediatype(0) +
-//     turl.generalFeatures(0) +
-//     turl.apikey();
-//   const fetchData = await fetch(popularMovies);
-//   const data: Response = await fetchData.json();
-//   res.json(data);
-// });
-
-// app.get("/now_playing", async (req: Request, res: Response, next) => {
-//   console.log("-->-->----now_playing");
-//   const nowPlaying: string =
-//     turl.baseURL() +
-//     turl.mediatype(0) +
-//     turl.generalFeatures(1) +
-//     turl.apikey();
-//   const fetchData: Response = await (await fetch(nowPlaying)).json();
-//   res.json(fetchData);
-// });
-
-// app.get("/top_rated", async (req: Request, res: Response, next) => {
-//   console.log("-->-->----top_rated");
-//   const topRated: string =
-//     turl.baseURL() +
-//     turl.mediatype(0) +
-//     turl.generalFeatures(2) +
-//     turl.apikey();
-//   const fetchData: Response = await (await fetch(topRated)).json();
-//   res.json(fetchData);
-// });
 
 // app.get("/genre", async (req: Request, res: Response, next) => {
 //   console.log("-->-->----genre");

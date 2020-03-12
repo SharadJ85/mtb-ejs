@@ -20,6 +20,17 @@ export default class Turl<T> {
   baseURL() {
     return "https://api.themoviedb.org/3/" as string;
   }
+/**
+ * returns imageURL="http://image.tmdb.org/t/p/{type}"
+ */
+  imageURL(imageSize:number){
+    const image=new Map()
+    image.set(0,"original")
+    image.set(1,"w500")
+    if(image.get(imageSize)){
+    return `http://image.tmdb.org/t/p/${image.get(imageSize)}` as string
+    }
+  }
 
   /**
    * returns genre list
@@ -29,7 +40,7 @@ export default class Turl<T> {
     const types: string[] = ["movie/list", "tv/list"];
     for (const index in types) {
       if (parseInt(index) === type) {
-        return "genre/" + types[index] as string;
+        return ("genre/" + types[index]) as string;
       }
     }
   }
@@ -40,24 +51,38 @@ export default class Turl<T> {
    */
   mediatype(type: number) {
     const types: string[] = ["movie", "tv", "person"];
+    let output: string | undefined;
     for (const index in types) {
       if (parseInt(index) === type) {
-        return types[index] as string;
+        output = types[index];
+        break;
       }
     }
+    return [output, types];
   }
 
   /**
    * returns type
    * @param type | 0: popular | 1: now_playing | 2: top_rated
    */
-  generalFeatures(type: number) {
-    const types: string[] = ["popular", "now_playing", "top_rated"];
+  generalFeatures(type?: number) {
+    const types: string[] = [
+      "top_rated",
+      "popular",
+      "latest",
+      "now_playing",
+      "upcomming",
+      "airing_today",
+      "on_the_air"
+    ];
+    let output: string | undefined;
     for (const index in types) {
       if (parseInt(index) === type) {
-        return types[index] as string;
+        output = types[index];
+        break;
       }
     }
+    return [output, types];
   }
 
   /**
@@ -72,13 +97,13 @@ export default class Turl<T> {
    */
   apikey() {
     const key: any = process.env.API_KEY;
-    return "?api_key=" + key as string;
+    return ("?api_key=" + key) as string;
   }
 
   /**
    * @param page generalFeatures(0) page number
    */
-  page(page: number=1) {
-    return "&page=" + page as string;
+  page(page: number = 1) {
+    return ("&page=" + page) as string;
   }
 }

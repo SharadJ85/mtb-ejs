@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+  <div>
+    <nav aria-label="...">
+      <ul class="pagination justify-content-center">
+        <% for(let i=-4;i<5;i++){ %>
+          <% if((pageid+i)>=1 && (pageid+i)<=pages) {%> 
+        <li 
+        class="page-item <%= (parseInt(pageid+i)==pageid)?"active":null %> ">
+          <a 
+          class="page-link" 
+          href="/<%= mediaType %>/<%= generalType %>/
+            <% if(i==-4) {%>1">
+            First</a>
+            <% } else if(i==-3) { %><%= (parseInt(pageid)-1) %>"
+            >Prev</a>
+            <% } else if(i==3) { %><%= (parseInt(pageid)+1) %>"
+            >Next</a>
+            <% } else if(i==4) { %><%= parseInt(pages) %>"
+            >Last</a>
+            <% } else { %>
+            <%= (parseInt(pageid)+i) %>"
+            ><%= (pageid+i) %>
+            </a>
+            <% } %>
+        </li>
+        <% } %>
+        <% } %>
+      </ul>
+    </nav>
+  </div>
+</body>
+
+</html>
