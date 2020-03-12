@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <body>
   <div>
     <nav aria-label="...">
       <ul class="pagination justify-content-center">
         <% for(let i=-4;i<5;i++){ %>
-          <% if((pageid+i)>=1 && (pageid+i)<=pages) {%> 
-        <li 
-        class="page-item <%= (parseInt(pageid+i)==pageid)?"active":null %> ">
-          <a 
-          class="page-link" 
-          href="/<%= mediaType %>/<%= generalType %>/
-            <% if(i==-4) {%>1">
-            First</a>
-            <% } else if(i==-3) { %><%= (parseInt(pageid)-1) %>"
-            >Prev</a>
-            <% } else if(i==3) { %><%= (parseInt(pageid)+1) %>"
-            >Next</a>
-            <% } else if(i==4) { %><%= parseInt(pages) %>"
-            >Last</a>
-            <% } else { %>
-            <%= (parseInt(pageid)+i) %>"
-            ><%= (pageid+i) %>
-            </a>
-            <% } %>
+        <li class="page-item
+          <% if(i==-4 || i==-3 ) { %> 
+        <%= (parseInt(pageid)==1)?" disabled":null %>">
+          <% if(i==-4) {%>
+          <a class=" page-link" href="/<%= mediaType %>/<%= generalType %>/1"> First</a>
         </li>
-        <% } %>
-        <% } %>
+        <% } else if(i==-3) { %>
+        <a class=" page-link" href="/<%= mediaType %>/<%= generalType %>/<%= (parseInt(pageid)-1) %>">Prev</a>
+        </li>
+        <%} } else if( i==3 || i==4) { %>
+        <%= (parseInt(pageid)==pages)?" disabled":null %>">
+        <%   if(i==3) { %>
+        <a class=" page-link" href="/<%= mediaType %>/<%= generalType %>/<%= (parseInt(pageid)+1) %>">Next</a>
+        </li>
+        <% } else if(i==4) { %>
+        <a class=" page-link" href="/<%= mediaType %>/<%= generalType %>/<%= parseInt(pages) %>">Last</a>
+        </li>
+        <% } } else { %>
+          <%= (parseInt(pageid+i)==pageid)?" active":null %>">
+          <% if((pageid+i)>=1 && (pageid+i)<=pages) { %>
+          <a class=" page-link" href="/<%= mediaType %>/<%= generalType %>/<%= (parseInt(pageid)+i) %>">
+            <%= (pageid+i) %>
+          </a>
+        </li>
+      <% } } }%>
       </ul>
     </nav>
   </div>
