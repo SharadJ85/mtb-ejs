@@ -74,46 +74,66 @@ while (turl.mediatype(count)[0]) {
   count++;
 }
 
-app.get(
-  "/:media/:generalFeature/:page?",
-  async (req: Request, res: Response, next) => {
-    try {
-      console.log(turl.generalFeatures.length);
-      const gFeature = featureMap.get(req.params.generalFeature);
-      const media = mediaMap.get(req.params.media);
-      const page = req.params.page;
-      const imageURL = turl.imageURL(1);
-      const url: string = req.params.page
-        ? `${turl.baseURL()}${media}/${gFeature}${turl.apikey()}${turl.page(
-            parseInt(req.params.page)
-          )}`
-        : `${turl.baseURL()}${media}/${gFeature}${turl.apikey()}`;
-      const fetchData = await (await fetch(url)).json();
-      console.log("-------------------------------");
-      console.log("URL== " + url);
-      console.log("-------------------------------");
-      console.log("feature==", gFeature);
-      console.log("-------------------------------");
-      console.log("media==", media);
-      console.log("-------------------------------");
-      console.log("page==", page);
-      console.log("-------------------------------");
-      res.render("general", {
-        allResults: fetchData.results,
-        imageURL,
-        type: gFeature.replace("_", " "),
-        pageid: fetchData.page,
-        pages:fetchData.total_pages,
-        mediaType:media,
-        generalType:gFeature
-      });
-    } catch (err) {
-      res
-        .status(404)
-        .send(`Sorry for the ${status} error, Error type:- ${err}`);
-    }
+// app.get(
+//   "/:media/:generalFeature/:page?",
+//   async (req: Request, res: Response, next) => {
+//     try {
+//       console.log(turl.generalFeatures.length);
+//       const gFeature = featureMap.get(req.params.generalFeature);
+//       const media = mediaMap.get(req.params.media);
+//       const page = req.params.page;
+//       const imageURL = turl.imageURL(1);
+//       const url: string = req.params.page
+//         ? `${turl.baseURL()}${media}/${gFeature}${turl.apikey()}${turl.page(
+//             parseInt(req.params.page)
+//           )}`
+//         : `${turl.baseURL()}${media}/${gFeature}${turl.apikey()}`;
+//       const fetchData = await (await fetch(url)).json();
+//       console.log("-------------------------------");
+//       console.log("URL== " + url);
+//       console.log("-------------------------------");
+//       console.log("feature==", gFeature);
+//       console.log("-------------------------------");
+//       console.log("media==", media);
+//       console.log("-------------------------------");
+//       console.log("page==", page);
+//       console.log("-------------------------------");
+//       res.render("general", {
+//         allResults: fetchData.results,
+//         imageURL,
+//         type: gFeature.replace("_", " "),
+//         pageid: fetchData.page,
+//         pages:fetchData.total_pages,
+//         mediaType:media,
+//         generalType:gFeature
+//       });
+//     } catch (err) {
+//       res
+//         .status(404)
+//         .send(`Sorry for the ${status} error, Error type:- ${err}`);
+//     }
+//   }
+// );
+
+
+app.get("/display", async (req: Request, res: Response, next) => {
+  try {
+    const media = mediaMap.get(req.params.media) as string;
+    const imageURL = turl.imageURL(1) as string;
+    const id = (turl.Id(parseInt(req.params.id)));
+    // tslint:disable-next-line: no-shadowed-variable
+    // const url = `${turl.baseURL}${media}/${id}${turl.apikey}`;
+     const url="https://api.themoviedb.org/3/movie/475557?api_key=d531f0b35e33ab3572f10065361d3ae1"
+    const fetchData = await (await fetch(url)).json();
+    console.log("URL==", url);
+    console.log("media==", media);
+    console.log("id==", id);
+    res.render("mediaDetails", { media: fetchData, imageURL });
+  } catch (err) {
+    res.status(404).send(`media type search ERROR is ${err}`);
   }
-);
+});
+
 
 // app.get("/genre", async (req: Request, res: Response, next) => {
 //   console.log("-->-->----genre");

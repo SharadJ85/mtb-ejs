@@ -20,15 +20,16 @@ export default class Turl<T> {
   baseURL() {
     return "https://api.themoviedb.org/3/" as string;
   }
-/**
- * returns imageURL="http://image.tmdb.org/t/p/{type}"
- */
-  imageURL(imageSize:number){
-    const image=new Map()
-    image.set(0,"original")
-    image.set(1,"w500")
-    if(image.get(imageSize)){
-    return `http://image.tmdb.org/t/p/${image.get(imageSize)}` as string
+  /**
+   * returns imageURL="http://image.tmdb.org/t/p/{type}"
+   * @param imageSize | 0: original | 1: w500
+   */
+  imageURL(imageSize: number) {
+    const image = new Map();
+    image.set(0, "original");
+    image.set(1, "w500");
+    if (image.get(imageSize)) {
+      return `http://image.tmdb.org/t/p/${image.get(imageSize)}` as string;
     }
   }
 
@@ -85,15 +86,15 @@ export default class Turl<T> {
     return [output, types];
   }
 
-  /**
-   * @param id type() ID number
+  /**returns ID number of media type
+   * @param id media type ID number
    */
   Id(id: number) {
     return id as number;
   }
 
   /**
-   * returns the user API_KEY stored in ".env" file
+   * returns "?api_key=key(--the user API_KEY stored in ".env" file--)"
    */
   apikey() {
     const key: any = process.env.API_KEY;
