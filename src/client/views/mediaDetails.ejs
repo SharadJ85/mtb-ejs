@@ -47,13 +47,13 @@
               border-radius: 2px;">
             </div>
           </div>
-          <div class="details m-2 mx-5 col-md-8">
+          <div class="details m-2 mx-5 col-md-7">
             <div class="d-flex flex-column justify-content-start text-white ">
               <div class="dtitle p-2 text-capitalize font-weight-bolder mt-1">
-                <h1><%= media.title %>  </h1>
+                <h1><%= media.title %> (<%= media.release_date %> )  </h1>
               </div>
               <div class="ml-4" style="font-size: 1.1rem;">
-                <h5>-<%= media.tagline %> </h5>
+                <h5><footer class="blockquote-footer"><cite title="Source Title"><%= media.tagline %></cite></footer></h5>
               </div>
               <div class="dgenre d-flex justify-content-start flex-wrap px-2">
                 <% if(media.adult){ %> 
