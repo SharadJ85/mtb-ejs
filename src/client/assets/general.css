@@ -1,23 +1,24 @@
-/* .main {
-    min-height: 100vh
-}
 
-.generalname {
-    max-height: 100px;
+.card-meta {
+  grid-area: span 1/span 2;
+  padding: 1rem;
 }
-
-h1 {
-    color: white;
+.card-meta--container {
+  display: -webkit-box;
+  display: flex;
+  padding-bottom: 0.8rem;
 }
-
-.cards {
-    display: flex;
-    flex-wrap: wrap;
+.card-meta--avatar {
+  width: 42px;
+  height: 42px;
+  align-self: center;
 }
-
-.singleCard {
-    width: 20%;
-    margin-left: 2rem;
-    padding-inline: 6rem;
-    padding-block: 2rem;
-} */
+.card-meta--title {
+  padding: 0.2rem 1rem;
+}
+.card-meta--name {
+  font-size: 1.2rem;
+}
+.card-meta--character {
+  color: #A5A9BB;
+}

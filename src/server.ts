@@ -69,7 +69,7 @@ while (turl.generalFeatures(count)[0]) {
 const mediaMap = new Map();
 count = 0;
 while (turl.mediatype(count)[0]) {
-  const mediaType = turl.mediatype(count)[0] as string;
+  const mediaType = turl.mediatype(count)[0];
   mediaMap.set(mediaType, mediaType);
   count++;
 }
@@ -115,25 +115,32 @@ while (turl.mediatype(count)[0]) {
 //   }
 // );
 
-
-app.get("/display", async (req: Request, res: Response, next) => {
+app.get("/details/:media/:id", async (req: Request, res: Response, next) => {
   try {
-    const media = mediaMap.get(req.params.media) as string;
-    const imageURL = turl.imageURL(1) as string;
-    const id = (turl.Id(parseInt(req.params.id)));
-    // tslint:disable-next-line: no-shadowed-variable
-    // const url = `${turl.baseURL}${media}/${id}${turl.apikey}`;
-     const url="https://api.themoviedb.org/3/movie/475557?api_key=d531f0b35e33ab3572f10065361d3ae1"
-    const fetchData = await (await fetch(url)).json();
-    console.log("URL==", url);
+    const media = mediaMap.get(req.params.media);
+    const imageURL = turl.imageURL(0);
+    const id = parseInt(req.params.id) as number;
+    const movieUrl = `${turl.baseURL()}${media}/${id}${turl.apikey()}`;
+    const creditsUrl = `${turl.baseURL()}${media}/${id}/credits${turl.apikey()}`;
+    // const creditsUrl="https://api.themoviedb.org/3/movie/475557/credits?api_key=d531f0b35e33ab3572f10065361d3ae1"
+    const movieData = await (await fetch(movieUrl)).json();
+    const creditsData = await (await fetch(creditsUrl)).json();
+    console.log("movieUrl==", movieUrl);
+    console.log("creditsUrl==", creditsUrl);
     console.log("media==", media);
     console.log("id==", id);
-    res.render("mediaDetails", { media: fetchData, imageURL });
+
+    res.render("mediaDetails", {
+      media: movieData,
+      imageURL,
+      creditsCast: creditsData.cast.splice(0,5),
+      // tslint:disable-next-line: no-unused-expression
+      creditsCrew: creditsData.crew.filter((el: any)=>{el.job==="Director"})
+    });
   } catch (err) {
-    res.status(404).send(`media type search ERROR is ${err}`);
+    res.status(404).send(`media type search ERROR :  ${err}`);
   }
 });
-
 
 // app.get("/genre", async (req: Request, res: Response, next) => {
 //   console.log("-->-->----genre");

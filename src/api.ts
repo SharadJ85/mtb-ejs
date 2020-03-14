@@ -94,7 +94,7 @@ export default class Turl<T> {
   }
 
   /**
-   * returns "?api_key=key(--the user API_KEY stored in ".env" file--)"
+   * returns "?api_key=(--the user API_KEY stored in ".env" file--)"
    */
   apikey() {
     const key: any = process.env.API_KEY;

@@ -2,11 +2,12 @@
 <html lang="en">
 
 <head>
+  <link rel='stylesheet' href="/general.css" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <title>MtB: <%= media.title %></title>
+  <title><%= media.title %></title>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
     crossorigin="anonymous"></script>
@@ -24,63 +25,76 @@
   </div>
   <div>
     <div style="border-bottom: 2px solid gray;">
-      <div class="mt-2 pb-1" style="background-image: url(http://image.tmdb.org/t/p/original/n6bUvigpRFqSwmPp1m2YADdbRBc.jpg); 
-        min-height: 80vh;background-position: center;
+      <div class="mt-2 pb-1" style="background-image: url(<%=imageURL+media.backdrop_path%>); 
+        min-height: 80vh;
+        background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
         filter: brightness(30%) blur(6px);
         position: relative;">
       </div>
     </div>
-    <div style=" position: absolute; top: 18vh; right:10vw; bottom:18vh; left:10vw;">
+    <div style=" position: absolute; top: 18vh; right:5vw; bottom:10vh; left:10vw;">
       <div class="container">
         <div class="row ">
-          <div class="poster col col-lg-4">
-            <div class="p-4 m-4 " style="width: auto;
-            height: 400px;
-            background-image: url(http://image.tmdb.org/t/p/original/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg);
-            background-size: contain;
-        background-repeat: no-repeat;
-            border-radius: 2px;">
+          <div class="poster col col-3">
+            <div class="p-4 m-4 " style="
+              width: 266.67px;
+              height: 400px;
+              background-image: url(<%=imageURL+media.poster_path%>);
+              background-size: contain;
+              background-repeat: no-repeat;
+              border-radius: 2px;">
             </div>
           </div>
-          <div class="details p-2 m-2 col-md-7">
+          <div class="details m-2 mx-5 col-md-8">
             <div class="d-flex flex-column justify-content-start text-white ">
-              <div class="dtitle p-2 m-2text-capitalize font-weight-bolder ">
-                <h1> JOKER</h1>
+              <div class="dtitle p-2 text-capitalize font-weight-bolder mt-1">
+                <h1><%= media.title %>  </h1>
               </div>
-              <div class="dgenre d-flex justify-content-start flex-wrap p-2">
-                <div>
-                  <a class="m-2 btn btn-dark btn-sm text-uppercase font-weight-bold" href="#" role="button">action</a>
-                </div>
-                <div>
-                  <a class="m-2 btn btn-dark btn-sm text-uppercase font-weight-bold" href="#" role="button">romance</a>
-                </div>
-                <div>
-                  <a class="m-2 btn btn-dark btn-sm text-uppercase font-weight-bold" href="#" role="button">drama</a>
-                </div>
-                <div>
-                  <a class="m-2 btn btn-dark btn-sm text-uppercase font-weight-bold" href="#" role="button">horror</a>
-                </div>
-                <div>
-                  <a class="m-2 btn btn-dark btn-sm text-uppercase font-weight-bold" href="#"
-                    role="button">adventure</a>
-                </div>
+              <div class="ml-4" style="font-size: 1.1rem;">
+                <h5>-<%= media.tagline %> </h5>
+              </div>
+              <div class="dgenre d-flex justify-content-start flex-wrap px-2">
+                <% if(media.adult){ %> 
+                <a class="m-2 btn btn-danger btn-sm text-uppercase font-weight-bold" href="#" role="button">
+                  adult
+                </a>
+              <%} media.genres.forEach(el=>{ %>
+                  <a class="m-2 btn btn-dark btn-sm text-uppercase font-weight-bold" href="#" role="button">
+                    <%=el.name%>
+                  </a>
+                <% }) %>
               </div>
               <div class="doverview text-bolder ml-4 pt-3">
                 <h4>Overview</h4>
               </div>
               <div class="p-1 ml-4">
-                <p>During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos
-                  in Gotham City while becoming an infamous psychopathic crime figure.</p>
+                <p><%= media.overview %> </p>
+              </div>
+              <div class="ml-4 mt-2">
+                <h4>Featured Cast</h4>
+                <div>
+                  <div class="cast d-flex justify-content-start flex-wrap">
+                    <% creditsCast.forEach(el=>{ %>
+                    <div class="card-meta--container p-2 align-self-center">
+                      <div class="card-meta--avatar rounded-circle" style="
+                      background: url(<%=imageURL+el.profile_path%>) center/cover">
+                      </div>
+                      <div class="card-meta--title">
+                        <h3 class="card-meta--name"> <%= el.name %> </h3>
+                        <div class="card-meta--character"> <%= el.character %> </div>
+                      </div>
+                    </div>
+                    <% }) %>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  </div>
 </body>
 
 </html>
