@@ -13,7 +13,7 @@
     </div>
     <div class="data">
       <div class="content">
-        <span class="author"><%= result.release_date %> </span>
+        <span class="author">(<%= result.release_date.slice(0,4)%>)</span>
         <h2 class="title"><a href="#"><%= result.title || result.name%></a></h2>
         <p class="text"><%=result.overview%></p>
         <a href="#" class="button">Read more</a>

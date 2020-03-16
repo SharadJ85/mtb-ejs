@@ -2,30 +2,22 @@
 <html lang="en">
 
 <head>
-  <link rel='stylesheet' href="/general.css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <%- include("bootstraphead") %>
+  <link rel="stylesheet" href="/general.css" />
   <title><%= media.title %></title>
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
 </head>
 
 <body style="background-color: #02131b;">
+  <!-- include navigation bar -->
   <div>
     <%- include("nav") %>
   </div>
+
   <div>
+    <!-- backdrop image -->
     <div style="border-bottom: 2px solid gray;">
-      <div class="mt-2 pb-1" style="background-image: url(<%=imageURL+media.backdrop_path%>); 
+      <div class="mt-2 pb-1" style="
+        background-image: url(<%=imageURL+media.backdrop_path%>); 
         min-height: 80vh;
         background-position: center;
         background-repeat: no-repeat;
@@ -34,9 +26,13 @@
         position: relative;">
       </div>
     </div>
+
+    <!-- brief -->
     <div style=" position: absolute; top: 18vh; right:5vw; bottom:10vh; left:10vw;">
       <div class="container">
         <div class="row ">
+
+          <!-- poster -->
           <div class="poster col col-3">
             <div class="p-4 m-4 " style="
               width: 266.67px;
@@ -47,43 +43,103 @@
               border-radius: 2px;">
             </div>
           </div>
-          <div class="details m-2 mx-5 col-md-7">
+
+          <!-- details -->
+          <div class="details m-2 mx-5 col-md-8">
             <div class="d-flex flex-column justify-content-start text-white ">
+
+              <!-- media title -->
               <div class="dtitle p-2 text-capitalize font-weight-bolder mt-1">
-                <h1><%= media.title %> (<%= media.release_date %> )  </h1>
+                <h1>
+                  <!-- date -->
+                  <%= media.title %> (<%= media.release_date.slice(0,4) %>)
+                </h1>
               </div>
+
+              <!-- media tagline -->
               <div class="ml-4" style="font-size: 1.1rem;">
-                <h5><footer class="blockquote-footer"><cite title="Source Title"><%= media.tagline %></cite></footer></h5>
+                <h5>
+                  <footer class="blockquote-footer">
+                    <cite title="Source Title"><%= media.tagline %></cite>
+                  </footer>
+                </h5>
               </div>
+
+              <!-- genre -->
               <div class="dgenre d-flex justify-content-start flex-wrap px-2">
-                <% if(media.adult){ %> 
+                <% if(media.adult){ %>
+                <!-- if adult show red pill button -->
                 <a class="m-2 btn btn-danger btn-sm text-uppercase font-weight-bold" href="#" role="button">
                   adult
                 </a>
-              <%} media.genres.forEach(el=>{ %>
-                  <a class="m-2 btn btn-dark btn-sm text-uppercase font-weight-bold" href="#" role="button">
-                    <%=el.name%>
-                  </a>
+                <!-- media genres -->
+                <%} media.genres.forEach(el=>{ %>
+                <a class="m-2 btn btn-dark btn-sm text-uppercase font-weight-bold" href="#" role="button">
+                  <%=el.name%>
+                </a>
                 <% }) %>
               </div>
+
+              <!-- overview -->
               <div class="doverview text-bolder ml-4 pt-3">
                 <h4>Overview</h4>
               </div>
-              <div class="p-1 ml-4">
-                <p><%= media.overview %> </p>
+
+              <!-- summary -->
+              <div class="p-1 ml-4" style="max-width: 600px;">
+                <p><%= media.overview %></p>
               </div>
+
               <div class="ml-4 mt-2">
-                <h4>Featured Cast</h4>
+                <h4>Featured</h4>
+
+                <!-- Crew -->
+                <h6 class="mb-0">Crew</h6>
+                <div class="cast d-flex justify-content-start flex-wrap">
+                  <!-- filter director name from crew array -->
+                  <%
+                    creditsCrew.filter(person=>person.job==="Director").forEach(el=>{
+                    %>
+                  <div class="card-meta--container px-2 pb-2 align-self-center">
+                    <!-- person avatar -->
+                    <div class="card-meta--avatar rounded-circle"
+                      style=" background: url(<%=imageURL+el.profile_path%>) center/cover">
+                    </div>
+
+                    <!-- person details -->
+                    <div class="card-meta--title">
+                      <h3 class="card-meta--name"><%= el.name %></h3>
+                      <div class="card-meta--character">
+
+                        <!-- filters all jobs of the director -->
+                        <% const jobs=[] %> <%=
+                          creditsCrew.filter(person=>person.name===el.name).forEach(p=>jobs.push(p.job))
+                          %> <%= jobs.join(" / ") %>
+                      </div>
+                    </div>
+                  </div>
+                  <% }) %>
+                </div>
+
+                <!-- Cast -->
+                <h6 class="mb-0">Cast</h6>
                 <div>
                   <div class="cast d-flex justify-content-start flex-wrap">
-                    <% creditsCast.forEach(el=>{ %>
-                    <div class="card-meta--container p-2 align-self-center">
-                      <div class="card-meta--avatar rounded-circle" style="
-                      background: url(<%=imageURL+el.profile_path%>) center/cover">
+                    <!--  first 3 persons in the casts list  -->
+                    <% creditsCast.slice(0,3).forEach(el=>{ %>
+                    <!-- person avatar -->
+                    <div class="card-meta--container px-2 pb-2 align-self-center">
+                      <div class="card-meta--avatar rounded-circle"
+                        style=" background: url(<%=imageURL+el.profile_path%>) center/cover">
                       </div>
+
+                      <!-- person details -->
                       <div class="card-meta--title">
-                        <h3 class="card-meta--name"> <%= el.name %> </h3>
-                        <div class="card-meta--character"> <%= el.character %> </div>
+                        <h3 class="card-meta--name"><%= el.name %></h3>
+                        <div class="card-meta--character">
+                          <!-- person character name in media -->
+                          <%= el.character %>
+                        </div>
                       </div>
                     </div>
                     <% }) %>
@@ -95,6 +151,142 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!--  more details -->
+  <div class="moredetails m-0 p-0 align-self-center" style="width: 1366;">
+    <div class="d-flex flex-row flex-wrap justify-content-end no-gutters">
+
+      <!--profit details-->
+      <div class="profit order-md-2"
+        style="background-color: #000000; min-height: 50vh;width: 350px; max-width: 450px;">
+      </div>
+
+      <!-- more details -->
+      <div class="order-md-1">
+
+        <!-- crew and cast -->
+        <div class="my-5">
+          <div class="castcrew m-3 mx-5 " style="min-height: 100vh;max-width: 723px;">
+
+            <!-- tabs list-->
+            <div class=" list-group list-group-horizontal" id="list-tab" role="tablist" style="
+                max-width: 200px;
+                text-align: center;
+                margin-left: 2rem;
+                padding-bottom: 5px;">
+              <!-- cast tab -->
+              <a class="mx-2 list-group-item list-group-item-info list-group-item-action active" id="list-cast-list"
+                data-toggle="list" href="#list-cast" role="tab" aria-controls="cast"
+                style="border-radius: 25px;border-radius: 25px; text-align: center;">
+                Cast
+              </a>
+              <!-- crew tab -->
+              <a class="mx-2 list-group-item list-group-item-info list-group-item-action" id="list-crew-list"
+                data-toggle="list" href="#list-crew" role="tab" aria-controls="crew"
+                style="border-radius: 25px;border-radius: 25px; text-align: center;">
+                Crew
+              </a>
+            </div>
+
+            <div class="w-100"></div>
+
+            <!-- tab content -->
+            <div class="col">
+              <div class="tab-content" id="nav-tabContent">
+
+                <!-- cast -->
+                <div class="tab-pane show active" id="list-cast" role="tabpanel" aria-labelledby="list-cast-list">
+                  <div class="cast" style="max-width: 723px;">
+                    <div class="cast py-2 d-flex"
+                      style="height: 285px;min-width: 445px;overflow-x: scroll;overflow-y: -moz-scrollbars-none;">
+
+                      <!-- each cast card -->
+                      <% creditsCast.forEach(el=>{ %>
+                      <!--  cast card background color-->
+                      <div class="text-white mx-2 font-weight-bold" style="
+                        height: max-content;
+                        width: 130px;
+                        border-radius: 3px;
+                        background-color: darkslategray;">
+
+                        <!--  cast card cast image-->
+                        <div style="
+                          height: 195px; 
+                          width: inherit;
+                          background: url(<%=imageURL+el.profile_path%>); 
+                          background-size: contain; 
+                          background-repeat: no-repeat;
+                          border-top-left-radius: 3px;
+                          border-top-right-radius: 3px;
+                          margin-bottom: -.5rem;"></div>
+
+                        <!-- cast details -->
+                        <div class=" mt-3 ">
+                          <div class="m-1 pl-1 text-truncate" style="font-size: 1rem;">
+                            <!-- cast name -->
+                            <%= el.name %>
+                          </div>
+                          <div class="m-1 pl-1 text-truncate" style="font-size: 0.8rem;">
+                            <!-- cast character name -->
+                            <%= el.character %>
+                          </div>
+                        </div>
+                      </div>
+                      <% }) %>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- crew -->
+                <div class="tab-pane" id="list-crew" role="tabpanel" aria-labelledby="list-crew-list">
+                  <div>
+                    <div class="crew py-2 d-flex"
+                      style="height: 285px;min-width: 445px; overflow-x:scroll; overflow-y:-moz-scrollbars-none;">
+
+                      <!-- each crew card -->
+                      <% creditsCrew.forEach(el=>{ %>
+                      <!--  crew card crew color-->
+                      <div class="text-white mx-2 font-weight-bold" style="
+                        height: max-content;
+                        width: 130px;
+                        border-radius: 3px;
+                        background-color: darkslategray;">
+
+                        <!--  crew card background image-->
+                        <div style="
+                          height: 195px; 
+                          width: inherit;
+                          background: url(<%=imageURL+el.profile_path%>); 
+                          background-size: contain; 
+                          background-repeat: no-repeat;
+                          border-top-left-radius: 3px;
+                          border-top-right-radius: 3px;
+                          margin-bottom: -.5rem;"></div>
+                          
+                        <!-- crew details -->
+                        <div class=" mt-3 ">
+                          <div class="m-1 pl-1 text-truncate" style="font-size: 1rem;">
+                            <!-- crew name -->
+                            <%= el.name %>
+                          </div>
+                          <div class="m-1 pl-1 text-truncate" style="font-size: 0.8rem;">
+                            <!-- crew job -->
+                            <%= el.job %>
+                          </div>
+                        </div>
+                      </div>
+                      <% }) %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>

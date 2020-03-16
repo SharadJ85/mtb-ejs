@@ -201,7 +201,7 @@ h3 {
     opacity: 0;
     position: absolute;
     right: 0;
-    top: 50%;
+    top: 5%;
     -webkit-transform: translate(0, -50%);
     transform: translate(0, -50%);
     -webkit-transition: all 0.3s;
@@ -209,7 +209,7 @@ h3 {
 }
 
 .poster .button:hover::after {
-    -webkit-transform: translate(5px, -50%);
-    transform: translate(5px, -50%);
+    -webkit-transform: translate(5px, -5%);
+    transform: translate(5px, -5%);
     opacity: 1;
 }
