@@ -82,12 +82,16 @@ app.get("/details/:media/:id", async (req: Request, res: Response, next) => {
     const id = parseInt(req.params.id) as number;
     const movieUrl = `${turl.baseURL()}${media}/${id}${turl.apikey()}`;
     const creditsUrl = `${turl.baseURL()}${media}/${id}/credits${turl.apikey()}`;
+    const videoUrl = `${turl.baseURL()}${media}/${id}/videos${turl.apikey()}`
     const movieData = await (await fetch(movieUrl)).json();
     const creditsData = await (await fetch(creditsUrl)).json();
+    const videoData = await (await fetch(videoUrl)).json();
     console.log("-------------------------------");
     console.log("movieUrl==", movieUrl);
     console.log("-------------------------------");
     console.log("creditsUrl==", creditsUrl);
+    console.log("-------------------------------");
+    console.log("videoUrl==", videoUrl);
     console.log("-------------------------------");
     console.log("media==", media);
     console.log("-------------------------------");
@@ -97,9 +101,8 @@ app.get("/details/:media/:id", async (req: Request, res: Response, next) => {
     res.render("mediaDetails", {
       media: movieData,
       imageURL,
-      creditsCast: creditsData.cast,
-      // tslint:disable-next-line: no-unused-expression
-      creditsCrew: creditsData.crew
+      videoinfo:videoData.results,
+      creditsData
     });
   } catch (err) {
     res.status(404).send(`media type search ERROR :  ${err}`);
