@@ -1,75 +1,93 @@
 
 .card-meta {
-  grid-area: span 1/span 2;
-  padding: 1rem;
+   grid-area: span 1/span 2;
+   padding: 1rem;
 }
+
 .card-meta--container {
-  display: -webkit-box;
-  display: flex;
-  padding-bottom: 0.8rem;
+   display: -webkit-box;
+   display: flex;
+   padding-bottom: 0.8rem;
 }
+
 .card-meta--avatar {
-  width: 42px;
-  height: 42px;
-  align-self: center;
+   width: 42px;
+   height: 42px;
+   align-self: center;
 }
+
 .card-meta--title {
-  padding: 0.2rem 1rem;
+   padding: 0.2rem 1rem;
 }
+
 .card-meta--name {
-  font-size: 1.2rem;
+   font-size: 1.2rem;
 }
+
 .card-meta--character {
-  color: #A5A9BB;
+   color: #A5A9BB;
 }
 
 
-.videotumb{
-  cursor: auto;
+.videotumb {
+   cursor: auto;
 }
 
 
-.playy { 
-  background: red;
-  border-radius: 50% / 10%;
-  color: #FFFFFF;
-  height: 3em;
-  width: 4em;
-  margin: 20px auto;
-  padding: 0;
-  position: absolute; left:calc(50% - 2em); top:calc(50% - 2em);
-  text-align: center;
-  text-indent: 0.1em;
-  transition: all 150ms ease-out;
+.playy {
+   background: red;
+   border-radius: 50% / 10%;
+   color: #FFFFFF;
+   height: 3em;
+   width: 4em;
+   margin: 20px auto;
+   padding: 0;
+   position: absolute;
+   left: calc(50% - 2rem);
+   top: calc(50% - 2.5rem);
+   text-align: center;
+   text-indent: 0.1em;
+   transition: all 150ms ease-out;
+}
+
+.videoimage {
+   height: 15rem;
+   width: auto;
+   border-radius: 3px;
+}
+
+.videotumb:hover {
+   cursor: pointer;
 }
 
 .playy:hover {
-  cursor: pointer ;
-  background: darkcyan;
+   cursor: pointer;
+   background: darkcyan;
 }
 
-.playy::before { 
-  background: inherit;
-  border-radius: 5% / 50%;
-  bottom: 9%;
-  content: "";
-  left: -5%;
-  position: absolute;
-  right: -5%;
-  top: 9%;
+.playy::before {
+   background: inherit;
+   border-radius: 5% / 50%;
+   bottom: 9%;
+   content: "";
+   left: -5%;
+   position: absolute;
+   right: -5%;
+   top: 9%;
 }
 
 .playy::after {
-  border-style: solid;
-  border-width: 1em 0 1em 1.732em;
-  border-color: transparent transparent transparent rgba(255, 255, 255, 0.75);
-  content: ' ';
-  font-size: 0.75em;
-  height: 0;
-  margin: -1em 0 0 -0.75em;
-  top: 50%;
-  position: absolute;
-  width: 0;}
+   border-style: solid;
+   border-width: 1em 0 1em 1.732em;
+   border-color: transparent transparent transparent rgba(255, 255, 255, 0.75);
+   content: ' ';
+   font-size: 0.75em;
+   height: 0;
+   margin: -1em 0 0 -0.75em;
+   top: 50%;
+   position: absolute;
+   width: 0;
+}
 
 
 

@@ -1,8 +1,9 @@
 import dotenv from "dotenv";
-import express, { Response, Request } from "express";
+import express, {Response, Request} from "express";
 import fetch from "node-fetch";
 import path from "path";
 import Turl from "./api";
+import helmet from "helmet";
 //
 //
 //
@@ -11,7 +12,7 @@ import Turl from "./api";
 //
 //
 // config dotenv and set its path
-dotenv.config({ path: ".." });
+dotenv.config({path: ".."});
 //
 // set Expressjs
 const app = express();
@@ -25,6 +26,7 @@ app.set("view engine", "ejs");
 
 // config express middleware for card.css
 app.use(express.static(path.join(__dirname, "client/assets")));
+app.use(helmet());
 
 // listen app on the given port
 app.listen(port, () => {
@@ -101,7 +103,7 @@ app.get("/details/:media/:id", async (req: Request, res: Response, next) => {
     res.render("mediaDetails", {
       media: movieData,
       imageURL,
-      videoinfo:videoData.results,
+      videoinfo: videoData.results,
       creditsData
     });
   } catch (err) {
@@ -110,48 +112,46 @@ app.get("/details/:media/:id", async (req: Request, res: Response, next) => {
 });
 
 
-
 app.get(
-  "/:media/:generalFeature/:page?",
-  async (req: Request, res: Response, next) => {
-    try {
-      console.log(turl.generalFeatures.length);
-      const gFeature = featureMap.get(req.params.generalFeature);
-      const media = mediaMap.get(req.params.media);
-      const page = req.params.page;
-      const imageURL = turl.imageURL(1);
-      const url: string = req.params.page
-        ? `${turl.baseURL()}${media}/${gFeature}${turl.apikey()}${turl.page(
-            parseInt(req.params.page)
-          )}`
-        : `${turl.baseURL()}${media}/${gFeature}${turl.apikey()}`;
-      const fetchData = await (await fetch(url)).json();
-      console.log("-------------------------------");
-      console.log("URL== " + url);
-      console.log("-------------------------------");
-      console.log("feature==", gFeature);
-      console.log("-------------------------------");
-      console.log("media==", media);
-      console.log("-------------------------------");
-      console.log("page==", page);
-      console.log("-------------------------------");
-      res.render("general", {
-        allResults: fetchData.results,
-        imageURL,
-        type: gFeature.replace("_", " "),
-        pageid: fetchData.page,
-        pages:fetchData.total_pages,
-        mediaType:media,
-        generalType:gFeature
-      });
-    } catch (err) {
-      res
-        .status(404)
-        .send(`Sorry for the ${status} error, Error type:- ${err}`);
+    "/:media/:generalFeature/:page?",
+    async (req: Request, res: Response, next) => {
+      try {
+        console.log(turl.generalFeatures.length);
+        const gFeature = featureMap.get(req.params.generalFeature);
+        const media = mediaMap.get(req.params.media);
+        const page = req.params.page;
+        const imageURL = turl.imageURL(1);
+        const url: string = req.params.page
+            ? `${turl.baseURL()}${media}/${gFeature}${turl.apikey()}${turl.page(
+                parseInt(req.params.page))}`
+            : `${turl.baseURL()}${media}/${gFeature}${turl.apikey()}`;
+        const videoUrl = {uurl: "https://www.youtube.com/embed/"};
+        const fetchData = await (await fetch(url)).json();
+        console.log("-------------------------------");
+        console.log("URL== " + url);
+        console.log("-------------------------------");
+        console.log("feature==", gFeature);
+        console.log("-------------------------------");
+        console.log("media==", media);
+        console.log("-------------------------------");
+        console.log("page==", page);
+        console.log("-------------------------------");
+        res.render("general", {
+          allResults: fetchData.results,
+          imageURL,
+          type: gFeature.replace("_", " "),
+          pageid: fetchData.page,
+          pages: fetchData.total_pages,
+          mediaType: media,
+          generalType: gFeature,
+        });
+      } catch (err) {
+        res
+            .status(404)
+            .send(`Sorry for the ${status} error, Error type:- ${err}`);
+      }
     }
-  }
 );
-
 
 
 // app.get("/genre", async (req: Request, res: Response, next) => {
