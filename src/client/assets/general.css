@@ -1,3 +1,15 @@
+castcrewoverflow {
+"overflow-x: hidden;"
+}
+
+castcrewoverflow:hover {
+"overflow-x: scroll;"
+}
+
+
+.cacard:hover {
+   box-shadow: 0 0 8px 0 rgba(151, 144, 144, 0.51), 0 6px 20px 0 rgb(0, 0, 0);
+}
 
 .card-meta {
    grid-area: span 1/span 2;

@@ -4,20 +4,27 @@
 <head>
   <%-include("bootstraphead")%>
   <link href="/general.css" rel="stylesheet"/>
-  <title><%=media.title%></title>
-</head>
-<!--<script>-->
-<!--  $('#exampleModal').on('show.bs.modal', function (event) {-->
-<!--    var button = $(event.relatedTarget) // Button that triggered the modal-->
-<!--    var recipient = button.data('whatever') // Extract info from data-* attributes-->
-<!--    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).-->
-<!--    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.-->
-<!--    var modal = $(this)-->
-<!--    modal.find('.modal-title').text('New message to ' + recipient)-->
-<!--    modal.find('.modal-body input').val(recipient)-->
-<!--  })-->
-<!--</script>-->
+  <title><%=media.title || media.name%></title>
+  <!--</head>-->
+  <!--<script>-->
+  <!--  $(document).ready(function () {-->
+  <!--    /* Get iframe src attribute value i.e. YouTube video url-->
+  <!--    and store it in a variable */-->
+  <!--    var url = $("#cartoonVideo").attr('src');-->
 
+  <!--    /* Assign empty url value to the iframe src attribute when-->
+  <!--    modal hide, which stop the video playing */-->
+  <!--    $("#myModal").on('hide.bs.modal', function () {-->
+  <!--      $("#cartoonVideo").attr('src', '');-->
+  <!--    });-->
+
+  <!--    /* Assign the initially stored url back to the iframe src-->
+  <!--    attribute when modal is displayed again */-->
+  <!--    $("#myModal").on('show.bs.modal', function () {-->
+  <!--      $("#cartoonVideo").attr('src', url);-->
+  <!--    });-->
+  <!--  });-->
+  <!--</script>-->
 <body style="background-color: #02131b;">
 <!-- include navigation bar -->
 <div>
@@ -65,16 +72,13 @@
             <div class="dtitle p-2 text-capitalize font-weight-bolder mt-1">
               <h1>
                 <!-- date -->
-                <%=media.title%> (<%=media.release_date.slice(0, 4)%>)
+                <%=media.title || media.name%> (<%=(media.release_date || media.first_air_date).slice(0, 4)%>)
               </h1>
             </div>
 
             <!-- media tagline -->
-            <div class="ml-4" style="font-size: 1.1rem;">
-              <h5>
-                <footer class="blockquote-footer">
-                  <cite title="Source Title"><%=media.tagline%></cite>
-                </footer>
+            <div class="ml-4 " style="font-size: 1.1rem; color:#9a9c9e">
+              <h5><em><%=media.tagline%></em>
               </h5>
             </div>
 
@@ -189,12 +193,28 @@
               background-repeat: no-repeat;">
         <!-- Button trigger modal -->
         <button type="button" class="playy" style="border: none; outline: none;" data-toggle="modal"
-                data-target="#exampleModalCenter" onclick="<% videoid = el.name %>"></button>
+                data-target="#myVideoModal" onclick="<% videoid = el.name %>"></button>
       </div>
       <p class="text-white-50 pl-2 "><%=el.type%>: <%=el.name%></p>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+
+    <!--    &lt;!&ndash;    modddddal&ndash;&gt;-->
+    <!--    <div id="myVideoModal" class="modal fade">-->
+    <!--      <div class="modal-dialog">-->
+    <!--        <div class="modal-content">-->
+    <!--          <div class="modal-header">-->
+    <!--            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+    <!--            <h4 class="modal-title">YouTube Video</h4>-->
+    <!--          </div>-->
+    <!--          <div class="modal-body">-->
+    <!--            <iframe id="cartoonVideo" width="560" height="315" src="//www.youtube.com/embed/YE7VzlLtp-4" frameborder="0"-->
+    <!--                    allowfullscreen></iframe>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <!--    Modal-->
+    <div class="modal fade" id="myVideoModal" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content" style="background-color: #1a202c">
@@ -206,8 +226,8 @@
             </button>
           </div>
           <div class="modal-body p-0" style="height: 500px">
-            <iframe src=`https://www.youtube.com/embed/FzehIddnaWU?autoplay=1` width="798"
-                    height="500">
+            <iframe id="cartoonVideo" width="798" height="500" src="https://www.youtube.com/embed/YE7VzlLtp-4"
+                    allowfullscreen>
             </iframe>
           </div>
         </div>
@@ -219,35 +239,17 @@
 
 </div>
 
-<!--<div class="bs-example">-->
-<!--  &lt;!&ndash; Button HTML (to Trigger Modal) &ndash;&gt;-->
-<!--  <a href="#myModal" class="btn btn-lg btn-primary" data-toggle="modal">Launch Demo Modal</a>-->
 
-<!--  &lt;!&ndash; Modal HTML &ndash;&gt;-->
-<!--  <div id="myModal" class="modal fade">-->
-<!--    <div class="modal-dialog">-->
-<!--      <div class="modal-content">-->
-<!--        <div class="modal-header">-->
-<!--          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-<!--          <h4 class="modal-title">YouTube Video</h4>-->
-<!--        </div>-->
-<!--        <div class="modal-body">-->
-<!--          <iframe id="cartoonVideo" width="560" height="315" src="//www.youtube.com/embed/YE7VzlLtp-4"-->
-<!--                  frameborder="0" allowfullscreen></iframe>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-<!--  more details -->
-<div class="moredetails m-0 p-0" style="width: 1366px;">
+<!--  cast and crew details -->
+<div class="moredetails m-0 p-0" style="max-width: 1366px;">
 
   <!-- crew and cast -->
   <div class="my-5 justify-content-center" style="display: grid;">
     <div class="castcrew m-3">
 
       <!-- tabs list-->
-      <div class="list-group list-group-horizontal mb-3 justify-content-center text-center" id="list-tab"
+      <div class="px-3 list-group list-group-horizontal mb-3 justify-content-center text-center font-weight-bold"
+           id="list-tab"
            role="tablist">
         <!-- style="display: grid;"  max-width: 48rem; -->
         <!-- cast tab -->
@@ -271,15 +273,15 @@
         <div class="tab-content" id="nav-tabContent">
 
           <!-- cast -->
-          <div class="tab-pane show active" id="list-cast" role="tabpanel" aria-labelledby="list-cast-list">
+          <div class="tab-pane show active" id="list-cast" role="tabpanel" aria-labelledby="list-cast-list"
+               style="height:22rem">
             <div class="cast" style="max-width: 1150px; min-width: 576px;">
-              <div class="cast py-2 d-flex"
-                   style="height: 285px;overflow-x: scroll;overflow-y: -moz-scrollbars-none;">
+              <div class="cast castcrewoverflow py-2 d-flex" style="overflow: scroll; overflow-y:-moz-scrollbars-none;">
 
                 <!-- each cast card -->
                 <% creditsData.cast.forEach(el=>{ %>
                 <!--  cast card background color-->
-                <div class="text-white mx-2 font-weight-bold" style="
+                <div class="cacard text-white mx-2 font-weight-bold" style="
                         height: max-content;
                         width: 130px;
                         border-radius: 3px;
@@ -313,10 +315,10 @@
           </div>
 
           <!-- crew -->
-          <div class="tab-pane" id="list-crew" role="tabpanel" aria-labelledby="list-crew-list">
+          <div class="tab-pane" id="list-crew" role="tabpanel" aria-labelledby="list-crew-list"
+               style="height:22rem">
             <div class="crew" style="max-width: 1150px; min-width: 576px;">
-              <div class="crew py-2 d-flex"
-                   style="height: 285px; overflow-x:scroll; overflow-y:-moz-scrollbars-none;">
+              <div class="crew castcrewoverflow py-2 d-flex" style="overflow: scroll; overflow-y:-moz-scrollbars-none;">
 
                 <!-- each crew card -->
                 <% creditsData.crew.forEach((el, currentIndex, array)=>{ %>
@@ -326,7 +328,7 @@
                       value.name === el.name ? jobs.push(value.job) : null
                     }) %>
                     <!--  crew card crew color-->
-                    <div class="text-white mx-2 font-weight-bold" style="
+                    <div class="cacard text-white mx-2 font-weight-bold" style="
                         height: max-content;
                         width: 130px;
                         border-radius: 3px;
@@ -363,6 +365,97 @@
     </div>
   </div>
 </div>
+
+
+<!--more details-->
+<div class="p-2 mt-5" style="min-height: 20vh">
+
+  <!--  runtime,budget,revenue-->
+  <div class="container">
+    <div class="row justify-content-center align-items-start text-white">
+      <div class="col-2">
+        <div class="font-weight-bold"><h5>Status</h5></div>
+        <div style="padding-top: 0.15rem;">
+          <button type="button" class="btn btn-sm btn-light"><%=media.status%></button>
+        </div>
+      </div>
+      <div class="col-2 pt-1">
+        <div class="font-weight-bold"><h5>Runtime</h5></div>
+        <div class="pt-1"><p><%=media.runtime%> mins</p>
+        </div>
+      </div>
+      <div class="col-2 pt-1">
+        <div class="font-weight-bold"><h5>Budget</h5></div>
+        <div class="pt-1"><p>$ <%=media.budget.toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,').slice(0, -2)%></p>
+        </div>
+      </div>
+      <div class="col-2 pt-1">
+        <div class="font-weight-bold"><h5>Revenue</h5></div>
+        <div class="pt-1"><p>$ <%=media.revenue.toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,').slice(0, -2)%></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  Production companies-->
+  <div class="my-5 container">
+    <div class="row justify-content-center mx-5 d-flex justify-content-start flex-wrap" style="max-width: 85rem">
+      <% media.production_companies.forEach(company=>{ %>
+      <div class="px-2 py-2 align-self-center" style="min-height: 72px;">
+        <div class="card-meta--container text-white pt-2"
+             style="background-color: #1c2d37;border-radius: 5px; width: 300px">
+          <!-- company avatar -->
+          <div class="card-meta--avatar rounded-circle ml-4"
+               style=" background: url(<%=imageURL + company.logo_path%>) center/cover">
+          </div>
+
+          <!-- company details -->
+          <div class="card-meta--title">
+            <h3 class="card-meta--name"><%=company.name%></h3>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <!--  Reviews-->
+  <div class="p-3 px-5 mx-5">
+    <div class="row justify-content-md-center">
+      <button class="btn w-100 text-white font-weight-bold" type="button" data-toggle="collapse"
+              data-target="#reviews" aria-expanded="false" aria-controls="reviews"
+              style="font-size:1.25rem; background-color: #191a1b ">Reviews
+      </button>
+      <div class="collapse w-100" id="reviews">
+        <div class="card card-body bg-dark text-white w-100">
+          <div class="d-flex flex-wrap justify-content-start">
+            <% reviews.results.forEach(review=>{ %>
+            <button class="btn btn-info mx-4 text-dark" type="button" data-toggle="collapse"
+                    data-target="#userreview"
+                    aria-expanded="false" aria-controls="userreview"
+                    onclick="document.getElementById('userreviewtext').innerText='<%=review.content%>'"><%=review.author%>
+            </button>
+            <% }) %>
+            <div class="collapse pt-2" id="userreview">
+              <div class="card card-body text-dark">
+                <p id="userreviewtext"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  external links-->
+  <div style="min-height: 30vh">
+
+  </div>
+
+</div>
+
+<footer style="min-height: 20vh; background-color: #2c7a7b">
+</footer>
 </body>
 
 </html>

@@ -77,21 +77,25 @@ while (turl.mediatype(count)[0]) {
 }
 
 
-app.get("/details/:media/:id", async (req: Request, res: Response, next) => {
+app.get("/info/:media/:id", async (req: Request, res: Response, next) => {
   try {
     const media = mediaMap.get(req.params.media);
     const imageURL = turl.imageURL(1);
     const id = parseInt(req.params.id) as number;
     const movieUrl = `${turl.baseURL()}${media}/${id}${turl.apikey()}`;
     const creditsUrl = `${turl.baseURL()}${media}/${id}/credits${turl.apikey()}`;
-    const videoUrl = `${turl.baseURL()}${media}/${id}/videos${turl.apikey()}`
+    const videoUrl = `${turl.baseURL()}${media}/${id}/videos${turl.apikey()}`;
+    const reviewUrl = `${turl.baseURL()}${media}/${id}/reviews${turl.apikey()}`;
     const movieData = await (await fetch(movieUrl)).json();
     const creditsData = await (await fetch(creditsUrl)).json();
     const videoData = await (await fetch(videoUrl)).json();
+    const reviewData = await (await fetch(reviewUrl)).json();
     console.log("-------------------------------");
     console.log("movieUrl==", movieUrl);
     console.log("-------------------------------");
     console.log("creditsUrl==", creditsUrl);
+    console.log("-------------------------------");
+    console.log("reviewUrl==", reviewUrl);
     console.log("-------------------------------");
     console.log("videoUrl==", videoUrl);
     console.log("-------------------------------");
@@ -104,7 +108,8 @@ app.get("/details/:media/:id", async (req: Request, res: Response, next) => {
       media: movieData,
       imageURL,
       videoinfo: videoData.results,
-      creditsData
+      creditsData,
+      reviews: reviewData
     });
   } catch (err) {
     res.status(404).send(`media type search ERROR :  ${err}`);
@@ -125,7 +130,6 @@ app.get(
             ? `${turl.baseURL()}${media}/${gFeature}${turl.apikey()}${turl.page(
                 parseInt(req.params.page))}`
             : `${turl.baseURL()}${media}/${gFeature}${turl.apikey()}`;
-        const videoUrl = {uurl: "https://www.youtube.com/embed/"};
         const fetchData = await (await fetch(url)).json();
         console.log("-------------------------------");
         console.log("URL== " + url);
