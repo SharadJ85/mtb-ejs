@@ -1,2 +1,10 @@
 node_modules/
 .env
+External Libraries/
+.idea/.gitignore
+.idea/codeStyles/
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/mtb.iml
+.idea/vcs.xml
