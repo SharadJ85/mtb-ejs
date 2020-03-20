@@ -42,7 +42,7 @@
             background-size: cover;
             filter: brightness(30%) blur(6px);
             position: relative;
-            min-height: 80vh;">
+            min-height: 85vh;">
 
     </div>
   </div>
@@ -65,12 +65,12 @@
         </div>
 
         <!-- details -->
-        <div class="details m-2 mx-5 col-md-8">
+        <div class="details m-2 ml-5 col-md-8">
           <div class="d-flex flex-column justify-content-start text-white ">
 
             <!-- media title -->
             <div class="dtitle p-2 text-capitalize font-weight-bolder mt-1">
-              <h1>
+              <h1 style="font-size: 2rem">
                 <!-- date -->
                 <%=media.title || media.name%> (<%=(media.release_date || media.first_air_date).slice(0, 4)%>)
               </h1>
@@ -78,7 +78,7 @@
 
             <!-- media tagline -->
             <div class="ml-4 " style="font-size: 1.1rem; color:#9a9c9e">
-              <h5><em><%=media.tagline%></em>
+              <h5 style="font-size: 1rem"><em>- <%=media.tagline%></em>
               </h5>
             </div>
 
@@ -101,7 +101,7 @@
 
             <!-- overview -->
             <div class="doverview text-bolder ml-4 pt-3">
-              <h4>Overview</h4>
+              <h4 style="font-size: 1.3rem">Overview</h4>
             </div>
 
             <!-- summary -->
@@ -110,7 +110,7 @@
             </div>
 
             <div class="ml-4 mt-2">
-              <h4>Featured</h4>
+              <h4 style="font-size: 1.3rem">Featured</h4>
 
               <!-- Crew -->
               <h6 class="mb-0">Crew</h6>
@@ -368,11 +368,12 @@
 
 
 <!--more details-->
-<div class="p-2 mt-5" style="min-height: 20vh">
+<div class="p-2 " style="min-height: 20vh">
 
   <!--  runtime,budget,revenue-->
   <div class="container">
-    <div class="row justify-content-center align-items-start text-white">
+    <div class="row justify-content-center align-items-center text-white"
+         style="background: linear-gradient(90deg, rgba(0,255,244,1) 0%, rgba(0,101,199,1) 100%);">
       <div class="col-2">
         <div class="font-weight-bold"><h5>Status</h5></div>
         <div style="padding-top: 0.15rem;">
@@ -380,17 +381,17 @@
         </div>
       </div>
       <div class="col-2 pt-1">
-        <div class="font-weight-bold"><h5>Runtime</h5></div>
+        <div class="font-weight-bold pt-1"><h5>Runtime</h5></div>
         <div class="pt-1"><p><%=media.runtime%> mins</p>
         </div>
       </div>
       <div class="col-2 pt-1">
-        <div class="font-weight-bold"><h5>Budget</h5></div>
+        <div class="font-weight-bold pt-1"><h5>Budget</h5></div>
         <div class="pt-1"><p>$ <%=media.budget.toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,').slice(0, -2)%></p>
         </div>
       </div>
       <div class="col-2 pt-1">
-        <div class="font-weight-bold"><h5>Revenue</h5></div>
+        <div class="font-weight-bold pt-1"><h5>Revenue</h5></div>
         <div class="pt-1"><p>$ <%=media.revenue.toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,').slice(0, -2)%></p>
         </div>
       </div>
@@ -427,19 +428,40 @@
               style="font-size:1.25rem; background-color: #191a1b ">Reviews
       </button>
       <div class="collapse w-100" id="reviews">
-        <div class="card card-body bg-dark text-white w-100">
+        <div class="card card-body bg-info text-white w-100">
           <div class="d-flex flex-wrap justify-content-start">
-            <% reviews.results.forEach(review=>{ %>
-            <button class="btn btn-info mx-4 text-dark" type="button" data-toggle="collapse"
-                    data-target="#userreview"
-                    aria-expanded="false" aria-controls="userreview"
-                    onclick="document.getElementById('userreviewtext').innerText='<%=review.content%>'"><%=review.author%>
-            </button>
-            <% }) %>
-            <div class="collapse pt-2" id="userreview">
-              <div class="card card-body text-dark">
-                <p id="userreviewtext"></p>
+            <div class="accordion" id="accordionExample">
+              <% reviews.results.forEach(review=>{ %>
+
+              <div class="card bg-dark my-3">
+                <div class="card-header " id="<%=review.author%>">
+                  <h2 class="mb-0">
+                    <button type="button" data-toggle="collapse"
+                            data-target="#<%=review.id%>"
+                    <% if(reviews.results[0].id === review.id){ %>
+                            class="btn btn-link text-info" aria-expanded="true"
+                    <% }else{ %>
+                            class="btn btn-link collapsed text-info " aria-expanded="false"
+                            <% } %>
+                            aria-controls="<%=review.id%>">
+                      <%=review.author%>
+                    </button>
+                  </h2>
+                </div>
+                <div id="<%=review.id%>"
+                <% if(reviews.results[0].id === review.id){ %>
+                     class="collapse show"
+                <% }else{ %>
+                     class="collapse "
+                        <% } %>
+
+                     aria-labelledby="<%=review.author%>"
+                     data-parent="#accordionExample">
+                  <div class="card-body"><p><%=review.content%></p>
+                  </div>
+                </div>
               </div>
+              <% }) %>
             </div>
           </div>
         </div>
