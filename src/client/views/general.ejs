@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <%- include("bootstraphead") %>
-    <title>MtB: <%= type %>  </title>
-  </head>
+<head>
+  <%-include("bootstraphead")%>
+  <title>MtB: <%=type%>  </title>
+</head>
 
 <body style="background-color: #02131b;">
-  <%- include( 'nav')  %> 
+<%-include( 'nav')%>
+<div>
   <div>
-    <div>
-      <%- include ('generalHeader',{generalHeader:type})  %> 
-    </div>
-    <div class="main ">
-      <div class="cards d-flex justify-content-around flex-wrap">
-        <% allResults.forEach(el=>{ %>
+    <%-include ('generalHeader',{generalHeader:type})%>
+  </div>
+  <div class="main ">
+    <div class="cards d-flex justify-content-around flex-wrap">
+      <% allResults.forEach(el=>{ %>
         <div class="singleCard m-4 p-4">
-          <%- include('card', {result:el}); %>
+          <%-include('card', {media:el})%>
         </div>
-        <% }); %>
-      </div>
+      <% }); %>
+    </div>
     <div class="pagiNation mt-4 p-2 pb-5">
-      <%- include ('pagination',pageid,pages,mediaType,generalType) %> 
+      <%-include ('pagination',pageid,pages,mediaType,generalType)%>
     </div>
   </div>
-  </div>
+</div>
 </body>
 
 </html>

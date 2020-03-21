@@ -65,7 +65,7 @@
         </div>
 
         <!-- details -->
-        <div class="details m-2 ml-5 col-md-8">
+        <div class="details m-2 ml-5 col-md-8.9">
           <div class="d-flex flex-column justify-content-start text-white ">
 
             <!-- media title -->
@@ -78,7 +78,7 @@
 
             <!-- media tagline -->
             <div class="ml-4 " style="font-size: 1.1rem; color:#9a9c9e">
-              <h5 style="font-size: 1rem"><em>- <%=media.tagline%></em>
+              <h5 style="font-size: 1rem"><em><%=media.tagline%></em>
               </h5>
             </div>
 
@@ -195,7 +195,7 @@
         <button type="button" class="playy" style="border: none; outline: none;" data-toggle="modal"
                 data-target="#myVideoModal" onclick="<% videoid = el.name %>"></button>
       </div>
-      <p class="text-white-50 pl-2 "><%=el.type%>: <%=el.name%></p>
+      <p class="text-white-50 pl-2 pt-1" style="max-width: 17rem;"><%=el.type%>: <%=el.name%></p>
     </div>
 
     <!--    &lt;!&ndash;    modddddal&ndash;&gt;-->
@@ -470,7 +470,24 @@
   </div>
 
   <!--  external links-->
-  <div style="min-height: 30vh">
+  <div class="container mt-5" style="min-height: 30vh">
+    <div class="row justify-content-center">
+      <a href="#" class="mx1 px-2">
+        <img src="/images/home.png" alt="home"
+             style="height:4rem;width: 13rem; background-position: center; background-size: cover; border-radius: 4px"></a>
+      <a href="#" class="mx1 px-2">
+        <img src="/images/abcde.png" alt="twitter"
+             style="height:4rem;width: 13rem; background-position: center; background-size: cover; border-radius: 4px"></a>
+      <a href="#" class="mx1 px-2">
+        <img src="/images/fbk.png" alt="facebook"
+             style="height:4rem;width: 13rem; background-position: center; background-size: cover; border-radius: 4px"></a>
+      <a href="#" class="mx1 px-2">
+        <img src="/images/insta.png" alt="insta"
+             style="height:4rem;width: 13rem; background-position: center; background-size: cover; border-radius: 4px"></a>
+      <a href="#" class="mx1 px-2">
+        <img src="/images/imdb.png" alt="imdb"
+             style="height:4rem;width: 13rem; background-position: center; background-size: cover; border-radius: 4px"></a>
+    </div>
 
   </div>
 

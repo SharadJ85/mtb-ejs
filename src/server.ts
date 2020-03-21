@@ -27,7 +27,24 @@ app.set("view engine", "ejs");
 // config express middleware for card.css
 app.use(express.static(path.join(__dirname, "client/assets")));
 app.use(helmet());
-
+//
+//
+//
+//
+// helper functions
+app.locals.ratingsColorSwitcher = (rating: number) => {
+  if (rating > 7.5) {
+    return "#64dd17";
+  } else if (rating >= 6) {
+    return "#ffd600";
+  } else if (rating >= 4) {
+    return "#ff3d00";
+  } else {
+    return "#d50000";
+  }
+};
+//
+//
 // listen app on the given port
 app.listen(port, () => {
   console.log(`=========================================`);
