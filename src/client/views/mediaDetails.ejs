@@ -5,6 +5,7 @@
   <%-include("bootstraphead")%>
   <link href="/general.css" rel="stylesheet"/>
   <title>MtB: <%=media.title || media.name%></title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
   <!--</head>-->
   <!--<script>-->
   <!--  $(document).ready(function () {-->
@@ -40,7 +41,7 @@
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
-            filter: brightness(30%) blur(5px);
+            filter: brightness(30%) blur(5px) contrast(1);
             position: relative;
             min-height: 85vh;">
 
@@ -176,7 +177,7 @@
 </div>
 
 <!--videos details-->
-<% if(videoinfo.length === 0){ %>
+<% if(videoinfo.length !== 0){ %>
   <div class="videos " style="background-color: #0a0a0a; ">
 
     <h2 class="pb-2 pt-5 ml-5 text-white">Related Videos</h2>
@@ -376,6 +377,7 @@
 <div class="p-2 " style="min-height: 20vh">
 
   <!--  runtime,budget,revenue-->
+  <% if(media.budget){ %>
   <div class="container">
     <div class="row justify-content-center align-items-center text-white"
          style="background: linear-gradient(90deg, rgba(0,255,244,1) 0%, rgba(0,101,199,1) 100%);">
@@ -402,7 +404,7 @@
       </div>
     </div>
   </div>
-
+  <% } %>
   <!--  Production companies-->
   <div class="my-5 container">
     <div class="row justify-content-center mx-5 d-flex justify-content-start flex-wrap" style="max-width: 85rem">

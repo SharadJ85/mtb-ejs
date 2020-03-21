@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <link rel='stylesheet' href="/mediacard.css"/>
-</head>
-</head>
 <div class="poster mediacard" style="position:relative">
   <div class="wrapper">
     <!--background poster-->
@@ -13,7 +6,7 @@
     <!--data-->
     <div class="data">
       <div class="content">
-        <span class="author">(<%=media.release_date.slice(0, 4)%>)</span>
+        <span class="author">(<%=(media.release_date || media.first_air_date).slice(0, 4)%>)</span>
         <h2 class="title"><%=media.title || media.name%>
         </h2>
         <p class="text" style="overflow: hidden;height: 5.5rem;"><%=media.overview%></p>
@@ -28,6 +21,3 @@
     <%-include("ratings")%>
   </div>
 </div>
-
-
-</html>

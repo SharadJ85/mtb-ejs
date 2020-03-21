@@ -1,8 +1,7 @@
-import dotenv from "dotenv";
 import express, {Response, Request} from "express";
 import fetch from "node-fetch";
 import path from "path";
-import Turl from "./api";
+import TbdbUrl from "./api";
 import helmet from "helmet";
 //
 //
@@ -11,8 +10,6 @@ import helmet from "helmet";
 //
 //
 //
-// config dotenv and set its path
-dotenv.config({path: ".."});
 //
 // set Expressjs
 const app = express();
@@ -72,14 +69,14 @@ app.get("/", (req: Request, res: Response, next) => {
 //
 //
 // set api url methods
-const turl = new Turl();
+const turl = new TbdbUrl();
 //
 //
 // set api url query param: general feature
 const featureMap = new Map();
 let count: number = 0;
-while (turl.generalFeatures(count)[0]) {
-  const featureType = turl.generalFeatures(count)[0] as string;
+while (turl.generalFeatures(count)) {
+  const featureType = turl.generalFeatures(count) as string;
   featureMap.set(featureType, featureType);
   count++;
 }
@@ -87,8 +84,8 @@ while (turl.generalFeatures(count)[0]) {
 // set api url query param: media type
 const mediaMap = new Map();
 count = 0;
-while (turl.mediatype(count)[0]) {
-  const mediaType = turl.mediatype(count)[0];
+while (turl.mediatype(count)) {
+  const mediaType = turl.mediatype(count);
   mediaMap.set(mediaType, mediaType);
   count++;
 }
@@ -160,7 +157,7 @@ app.get(
         res.render("general", {
           allResults: fetchData.results,
           imageURL,
-          type: gFeature.replace("_", " "),
+          type: gFeature.replace(/_/g, " "),
           pageid: fetchData.page,
           pages: fetchData.total_pages,
           mediaType: media,
