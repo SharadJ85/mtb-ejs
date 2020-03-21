@@ -4,6 +4,7 @@
 <head>
   <link rel='stylesheet' href="/mediacard.css"/>
 </head>
+</head>
 <div class="poster mediacard" style="position:relative">
   <div class="wrapper">
     <!--background poster-->
@@ -24,19 +25,7 @@
 
   <!--ratings-->
   <div style="width: 3.3rem;position: absolute;top:-1rem;right:-1rem;">
-    <div>
-      <svg viewbox="0 0 100 100">
-        <circle cx="50" cy="50" r="48" fill="#0c0c0c"/>
-        <path fill="none" stroke-linecap="round" stroke-width="7"
-              stroke="<%=ratingsColorSwitcher(parseFloat(media.vote_average))%>"
-              stroke-dasharray="<%=(Math.round(media.vote_average * 10) * 2.5)%>,<%=(251.2 - (Math.round(media.vote_average * 10)) * 2.5)%>"
-              d="M50 10
-           a 40 40 0 0 1 0 80
-           a 40 40 0 0 1 0 -80"/>
-        <text x="50" y="55" text-anchor="middle" dy="7" font-size="2.2rem"
-              class="font-weight-bold " fill="#c2c2c2"><%=media.vote_average%></text>
-      </svg>
-    </div>
+    <%-include("ratings")%>
   </div>
 </div>
 

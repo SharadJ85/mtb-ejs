@@ -1,4 +1,5 @@
 import * as dotenv from "dotenv";
+
 dotenv.config();
 
 /**
@@ -20,6 +21,7 @@ export default class Turl<T> {
   baseURL() {
     return "https://api.themoviedb.org/3/" as string;
   }
+
   /**
    * returns imageURL="http://image.tmdb.org/t/p/{type}"
    * @param imageSize | 0: original | 1: w500
@@ -70,7 +72,6 @@ export default class Turl<T> {
     const types: string[] = [
       "top_rated",
       "popular",
-      "latest",
       "now_playing",
       "upcomming",
       "airing_today",

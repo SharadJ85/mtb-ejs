@@ -4,7 +4,7 @@
 <head>
   <%-include("bootstraphead")%>
   <link href="/general.css" rel="stylesheet"/>
-  <title><%=media.title || media.name%></title>
+  <title>MtB: <%=media.title || media.name%></title>
   <!--</head>-->
   <!--<script>-->
   <!--  $(document).ready(function () {-->
@@ -25,7 +25,7 @@
   <!--    });-->
   <!--  });-->
   <!--</script>-->
-<body style="background-color: #02131b;">
+<body style="background-color: #02131b; position: relative">
 <!-- include navigation bar -->
 <div>
   <%-include("nav")%>
@@ -40,7 +40,7 @@
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
-            filter: brightness(30%) blur(6px);
+            filter: brightness(30%) blur(5px);
             position: relative;
             min-height: 85vh;">
 
@@ -65,11 +65,11 @@
         </div>
 
         <!-- details -->
-        <div class="details m-2 ml-5 col-md-8.9">
+        <div class="details m-2 pl-5 col-md-8.5">
           <div class="d-flex flex-column justify-content-start text-white ">
 
             <!-- media title -->
-            <div class="dtitle p-2 text-capitalize font-weight-bolder mt-1">
+            <div class="dtitle pt-2 px-2 text-capitalize font-weight-bolder mt-1">
               <h1 style="font-size: 2rem">
                 <!-- date -->
                 <%=media.title || media.name%> (<%=(media.release_date || media.first_air_date).slice(0, 4)%>)
@@ -77,8 +77,11 @@
             </div>
 
             <!-- media tagline -->
-            <div class="ml-4 " style="font-size: 1.1rem; color:#9a9c9e">
-              <h5 style="font-size: 1rem"><em><%=media.tagline%></em>
+            <div class="ml-2 pb-1 container row" style=" color:#9a9c9e">
+              <div class="col-3 pl-0" style="max-width: 5rem">
+                <%-include("ratings")%>
+              </div>
+              <h5 class="col-auto align-self-center pl-0" style="font-size: 1.2rem"><em><%=media.tagline%></em>
               </h5>
             </div>
 
@@ -105,7 +108,7 @@
             </div>
 
             <!-- summary -->
-            <div class="p-1 ml-4" style="max-width: 600px;">
+            <div class="p-1 ml-4" style="max-width: 40rem;">
               <p><%=media.overview%></p>
             </div>
 
@@ -173,72 +176,72 @@
 </div>
 
 <!--videos details-->
-<div class="videos " style="background-color: #0a0a0a; ">
+<% if(videoinfo.length === 0){ %>
+  <div class="videos " style="background-color: #0a0a0a; ">
 
-  <h2 class="pb-2 pt-5 ml-5 text-white">Related Videos</h2>
-  <div class="trailers  d-flex justify-content-start"
-  <% if(videoinfo.length > 4){ %>
-       style="overflow-x: scroll"
-          <% } %>
-  >
-    <% videoinfo.forEach(el=>{ %>
-    <div class="px-3 pb-4">
-      <div class="m-0 videotumb" style="
+    <h2 class="pb-2 pt-5 ml-5 text-white">Related Videos</h2>
+    <div class="trailers  d-flex justify-content-start"
+    <% if(videoinfo.length > 4){ %>
+         style="overflow-x: scroll"
+            <% } %>
+    >
+      <% videoinfo.forEach(el=>{ %>
+      <div class="px-3 pb-4">
+        <div class="m-0 videotumb" style="
               background-size: contain;
               background-repeat: no-repeat;
               position: relative; ">
-        <img class="videoimage " src="https://img.youtube.com/vi/<%=el.key%>/0.jpg" alt="<% el.name %>"
-             style="
+          <img class="videoimage " src="https://img.youtube.com/vi/<%=el.key%>/0.jpg" alt="<% el.name %>"
+               style="
              border-radius: 0.5rem;
               background-repeat: no-repeat;">
-        <!-- Button trigger modal -->
-        <button type="button" class="playy" style="border: none; outline: none;" data-toggle="modal"
-                data-target="#myVideoModal" onclick="<% videoid = el.name %>"></button>
+          <!-- Button trigger modal -->
+          <button type="button" class="playy" style="border: none; outline: none;" data-toggle="modal"
+                  data-target="#myVideoModal" onclick="<% videoid = el.name %>"></button>
+        </div>
+        <p class="text-white-50 pl-2 pt-1" style="max-width: 17rem;"><%=el.type%>: <%=el.name%></p>
       </div>
-      <p class="text-white-50 pl-2 pt-1" style="max-width: 17rem;"><%=el.type%>: <%=el.name%></p>
-    </div>
 
-    <!--    &lt;!&ndash;    modddddal&ndash;&gt;-->
-    <!--    <div id="myVideoModal" class="modal fade">-->
-    <!--      <div class="modal-dialog">-->
-    <!--        <div class="modal-content">-->
-    <!--          <div class="modal-header">-->
-    <!--            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-    <!--            <h4 class="modal-title">YouTube Video</h4>-->
-    <!--          </div>-->
-    <!--          <div class="modal-body">-->
-    <!--            <iframe id="cartoonVideo" width="560" height="315" src="//www.youtube.com/embed/YE7VzlLtp-4" frameborder="0"-->
-    <!--                    allowfullscreen></iframe>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!--    Modal-->
-    <div class="modal fade" id="myVideoModal" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content" style="background-color: #1a202c">
-          <div class="modal-header pt-2 pb-1">
-            <h5 class="modal-title text-truncate text-white" id="exampleModalLongTitle">
-              <%=el.type%> : <%=el.name%></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body p-0" style="height: 500px">
-            <iframe id="cartoonVideo" width="798" height="500" src="https://www.youtube.com/embed/YE7VzlLtp-4"
-                    allowfullscreen>
-            </iframe>
+      <!--    &lt;!&ndash;    modddddal&ndash;&gt;-->
+      <!--    <div id="myVideoModal" class="modal fade">-->
+      <!--      <div class="modal-dialog">-->
+      <!--        <div class="modal-content">-->
+      <!--          <div class="modal-header">-->
+      <!--            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+      <!--            <h4 class="modal-title">YouTube Video</h4>-->
+      <!--          </div>-->
+      <!--          <div class="modal-body">-->
+      <!--            <iframe id="cartoonVideo" width="560" height="315" src="//www.youtube.com/embed/YE7VzlLtp-4" frameborder="0"-->
+      <!--                    allowfullscreen></iframe>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <!--    </div>-->
+      <!--    Modal-->
+      <div class="modal fade" id="myVideoModal" tabindex="-1" role="dialog"
+           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+          <div class="modal-content" style="background-color: #1a202c">
+            <div class="modal-header pt-2 pb-1">
+              <h5 class="modal-title text-truncate text-white" id="exampleModalLongTitle">
+                <%=el.type%> : <%=el.name%></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body p-0" style="height: 500px">
+              <iframe id="cartoonVideo" width="798" height="500" src="https://www.youtube.com/embed/YE7VzlLtp-4"
+                      allowfullscreen>
+              </iframe>
+            </div>
           </div>
         </div>
       </div>
+
+      <% }) %>
     </div>
-
-    <% }) %>
   </div>
-
-</div>
-
+<% } %>
 
 <!--  cast and crew details -->
 <div class="moredetails m-0 p-0" style="max-width: 1366px;">
@@ -276,7 +279,8 @@
           <div class="tab-pane show active" id="list-cast" role="tabpanel" aria-labelledby="list-cast-list"
                style="height:22rem">
             <div class="cast" style="max-width: 1150px; min-width: 576px;">
-              <div class="cast castcrewoverflow py-2 d-flex" style="overflow: scroll; overflow-y:-moz-scrollbars-none;">
+              <div class="cast castcrewoverflow py-2 d-flex"
+                   style="overflow: scroll; overflow-y:-moz-scrollbars-none;">
 
                 <!-- each cast card -->
                 <% creditsData.cast.forEach(el=>{ %>
@@ -318,7 +322,8 @@
           <div class="tab-pane" id="list-crew" role="tabpanel" aria-labelledby="list-crew-list"
                style="height:22rem">
             <div class="crew" style="max-width: 1150px; min-width: 576px;">
-              <div class="crew castcrewoverflow py-2 d-flex" style="overflow: scroll; overflow-y:-moz-scrollbars-none;">
+              <div class="crew castcrewoverflow py-2 d-flex"
+                   style="overflow: scroll; overflow-y:-moz-scrollbars-none;">
 
                 <!-- each crew card -->
                 <% creditsData.crew.forEach((el, currentIndex, array)=>{ %>
