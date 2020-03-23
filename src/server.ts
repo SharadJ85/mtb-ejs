@@ -57,12 +57,6 @@ app.listen(port, () => {
 //
 //
 //
-// define a route handler for the default home page
-app.get("/", (req: Request, res: Response, next) => {
-  console.log("-->-->----home");
-  // render the index template
-  res.render("index");
-});
 //
 //
 //
@@ -89,8 +83,40 @@ while (turl.mediatype(count)) {
   mediaMap.set(mediaType, mediaType);
   count++;
 }
+//
+//
+//
+//
+//
+//
+//
 
+// define a route handler for the default home page
+app.get("/", async (req: Request, res: Response, next) => {
+  try {
+    console.log("-->-->-->-->home");
+    const imageURL = turl.imageURL(0);
+    const tvURL = `${turl.baseURL()}${turl.mediatype(1)}/${turl.generalFeatures(5)}${turl.apikey()}`;
+    const movieURL = `${turl.baseURL()}${turl.mediatype(0)}/${turl.generalFeatures(1)}${turl.apikey()}`;
+    const tvData = await (await fetch(tvURL)).json();
+    const movieData = await (await fetch(movieURL)).json();
+    console.log("-------------------------------");
+    console.log("movieUrl==", movieURL);
+    console.log("-------------------------------");
+    console.log("tvUrl==", tvURL);
 
+    console.log("-------------------------------");
+    // render the index template
+    res.render("index", {
+      imageURL,
+      tv: tvData.results.slice(1, 10),
+      movie: movieData.results.slice(1, 10)
+    });
+  } catch (err) {
+    res.status(404).send(`media type search ERROR :  ${err}`);
+  }
+});
+// details page
 app.get("/info/:media/:id", async (req: Request, res: Response, next) => {
   try {
     const media = mediaMap.get(req.params.media);
@@ -100,6 +126,8 @@ app.get("/info/:media/:id", async (req: Request, res: Response, next) => {
     const creditsUrl = `${turl.baseURL()}${media}/${id}/credits${turl.apikey()}`;
     const videoUrl = `${turl.baseURL()}${media}/${id}/videos${turl.apikey()}`;
     const reviewUrl = `${turl.baseURL()}${media}/${id}/reviews${turl.apikey()}`;
+    const dataToBeFetched = [movieUrl, creditsUrl, videoUrl, reviewUrl];
+    const results = await Promise.all(dataToBeFetched);
     const movieData = await (await fetch(movieUrl)).json();
     const creditsData = await (await fetch(creditsUrl)).json();
     const videoData = await (await fetch(videoUrl)).json();
@@ -130,7 +158,7 @@ app.get("/info/:media/:id", async (req: Request, res: Response, next) => {
   }
 });
 
-
+// general page
 app.get(
     "/:media/:generalFeature/:page?",
     async (req: Request, res: Response, next) => {

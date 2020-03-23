@@ -2,10 +2,8 @@
 <html lang="en">
 
 <head>
-  <%-include("bootstraphead")%>
-  <link href="/general.css" rel="stylesheet"/>
+  <%-include("head")%>
   <title>MtB: <%=media.title || media.name%></title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
   <!--</head>-->
   <!--<script>-->
   <!--  $(document).ready(function () {-->
@@ -37,7 +35,7 @@
   <!-- backdrop image -->
   <div id="backdropimage" style="border-bottom: 2px solid gray;">
     <div class="mt-2 pb-1" style="
-            background-image: url(<%=imageURL + media.backdrop_path%>);
+            background-image: url(<%=imageURL+media.backdrop_path%>);
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -58,7 +56,7 @@
           <div class="p-4 m-4 " style="
                   width: 267px;
                   height: 400px;
-                  background-image: url(<%=imageURL + media.poster_path%>);
+                  background-image: url(<%=imageURL+media.poster_path%>);
                   background-size: contain;
                   background-repeat: no-repeat;
                   border-radius: 2px;">
@@ -126,7 +124,7 @@
                 <div class="card-meta--container px-2 pb-2 align-self-center">
                   <!-- person avatar -->
                   <div class="card-meta--avatar rounded-circle"
-                       style=" background: url(<%=imageURL + el.profile_path%>) center/cover">
+                       style=" background: url(<%=imageURL+el.profile_path%>) center/cover">
                   </div>
 
                   <!-- person details -->
@@ -153,7 +151,7 @@
                   <!-- person avatar -->
                   <div class="card-meta--container px-2 pb-2 align-self-center">
                     <div class="card-meta--avatar rounded-circle"
-                         style=" background: url(<%=imageURL + el.profile_path%>) center/cover">
+                         style=" background: url(<%=imageURL+el.profile_path%>) center/cover">
                     </div>
 
                     <!-- person details -->
@@ -198,7 +196,7 @@
               background-repeat: no-repeat;">
           <!-- Button trigger modal -->
           <button type="button" class="playy" style="border: none; outline: none;" data-toggle="modal"
-                  data-target="#myVideoModal" onclick="<% videoid = el.name %>"></button>
+                  data-target="#myVideoModal" onclick="<%videoid=el.name%>"></button>
         </div>
         <p class="text-white-50 pl-2 pt-1" style="max-width: 17rem;"><%=el.type%>: <%=el.name%></p>
       </div>
@@ -296,7 +294,7 @@
                   <div style="
                           height: 195px;
                           width: inherit;
-                          background: url(<%=imageURL + el.profile_path%>);
+                          background: url(<%=imageURL+el.profile_path%>);
                           background-size: contain;
                           border-top-left-radius: 3px;
                           border-top-right-radius: 3px;
@@ -344,7 +342,7 @@
                       <div style="
                               height: 195px;
                               width: inherit;
-                              background: url(<%=imageURL + el.profile_path%>);
+                              background: url(<%=imageURL+el.profile_path%>);
                               background-size: cover;
                               border-top-left-radius: 3px;
                               border-top-right-radius: 3px;
@@ -414,7 +412,7 @@
              style="background-color: #1c2d37;border-radius: 5px; width: 300px">
           <!-- company avatar -->
           <div class="card-meta--avatar rounded-circle ml-4"
-               style=" background: url(<%=imageURL + company.logo_path%>) center/cover">
+               style=" background: url(<%=imageURL+company.logo_path%>) center/cover">
           </div>
 
           <!-- company details -->
