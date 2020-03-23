@@ -3,25 +3,34 @@
 
 <head>
   <%-include("head")%>
-  <title>MtB</title>
-
+  <title>MtB: Home</title>
 </head>
 
-<body style="background-color: #02131b">
+<body style="background-color: #0a0a0a">
 <%-include('nav')%>
 <div class="movieNowPlaying ">
   <div class="p-0 darkStrip row justify-content-center"
-       style="background-color: #0a0a0a;margin: auto;max-width: 1500px">
-    <h4 class="my-2 align-self-center text-white font-weight-light ">In Theaters</h4>
+       style="margin: auto;max-width: 1500px; height: 3rem">
+    <a href="/movie/now_playing" class="mt-2 align-self-center"
+       style="text-decoration: none">
+      <h4 class="text-white font-weight-light" style="letter-spacing: 3px">
+        Movies In Theaters</h4></a>
   </div>
-  <%-include("imageCollage",{media:movie,imageURL})%>
+  <%-include("imageCollage",{media:movie,imageURL,mediaType:"movie"})%>
 </div>
 <div class="tvAiringToday">
   <div class="p-0 darkStrip row justify-content-center"
-       style="background-color: #0a0a0a;margin: auto;max-width: 1500px">
-    <h4 class="my-2 align-self-center text-white font-weight-light ">Airing Today</h4>
+       style="margin: auto;max-width: 1500px; height: 3rem">
+    <a href="/tv/on_the_air" class="mt-2 align-self-center"
+       style="text-decoration: none">
+      <h4 class="text-white font-weight-light" style="letter-spacing: 3px">
+        TV Shows on Air</h4>
+    </a>
   </div>
-  <%-include("imageCollage",{media:tv,imageURL})%>
+  <%-include("imageCollage",{media:tv,imageURL,mediaType:"tv"})%>
+</div>
+<div style=" min-height: 8vh;">
+
 </div>
 </body>
 </html>

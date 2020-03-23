@@ -109,8 +109,8 @@ app.get("/", async (req: Request, res: Response, next) => {
     // render the index template
     res.render("index", {
       imageURL,
-      tv: tvData.results.slice(1, 10),
-      movie: movieData.results.slice(1, 10)
+      tv: tvData.results.slice(0, 9),
+      movie: movieData.results.slice(0, 9)
     });
   } catch (err) {
     res.status(404).send(`media type search ERROR :  ${err}`);
