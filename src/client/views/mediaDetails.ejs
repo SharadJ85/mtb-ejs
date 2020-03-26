@@ -64,7 +64,7 @@
         </div>
 
         <!-- details -->
-        <div class="details m-2 pl-5 col-md-8.5">
+        <div class="details m-2 pl-5 col-md-8">
           <div class="d-flex flex-column justify-content-start text-white ">
 
             <!-- media title -->
@@ -108,7 +108,7 @@
 
             <!-- summary -->
             <div class="p-1 ml-4" style="max-width: 40rem;">
-              <p><%=media.overview%></p>
+              <p style="font-size: 1rem"><%=media.overview%></p>
             </div>
 
             <div class="ml-4 mt-2">
@@ -196,7 +196,7 @@
               background-repeat: no-repeat;">
           <!-- Button trigger modal -->
           <button type="button" class="playy" style="border: none; outline: none;" data-toggle="modal"
-                  data-target="#myVideoModal" onclick="<%videoid=el.name%>"></button>
+                  data-target="#myVideoModal" onclick="<% videoid = el.name %>"></button>
         </div>
         <p class="text-white-50 pl-2 pt-1" style="max-width: 17rem;"><%=el.type%>: <%=el.name%></p>
       </div>

@@ -1,8 +1,9 @@
-import express, {Response, Request} from "express";
+import express, {Response, Request, NextFunction} from "express";
 import fetch from "node-fetch";
 import path from "path";
-import TbdbUrl from "./api";
+import TmdbApiUrl from "./api";
 import helmet from "helmet";
+import bodyParser from "body-parser";
 //
 //
 //
@@ -13,7 +14,13 @@ import helmet from "helmet";
 //
 // set Expressjs
 const app = express();
-
+//
+//
+// create application/x-www-form-urlencoded parser --- middleware
+app.use(bodyParser.urlencoded({extended: false}));
+//
+// for parsing application/json
+app.use(bodyParser.json());
 // set port number
 const port: number = parseInt(process.env.PORT as string) || 5050;
 
@@ -63,7 +70,7 @@ app.listen(port, () => {
 //
 //
 // set api url methods
-const turl = new TbdbUrl();
+const turl = new TmdbApiUrl();
 //
 //
 // set api url query param: general feature
@@ -90,7 +97,6 @@ while (turl.mediatype(count)) {
 //
 //
 //
-
 // define a route handler for the default home page
 app.get("/", async (req: Request, res: Response, next) => {
   try {
@@ -104,7 +110,6 @@ app.get("/", async (req: Request, res: Response, next) => {
     console.log("movieUrl==", movieURL);
     console.log("-------------------------------");
     console.log("tvUrl==", tvURL);
-
     console.log("-------------------------------");
     // render the index template
     res.render("index", {
@@ -153,6 +158,21 @@ app.get("/info/:media/:id", async (req: Request, res: Response, next) => {
       creditsData,
       reviews: reviewData
     });
+  } catch (err) {
+    res.status(404).send(`media type search ERROR :  ${err}`);
+  }
+});
+
+
+// tslint:disable-next-line:no-shadowed-variable
+app.post("/", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    console.log("req", req.body.searchValue);
+    const searchUrl = `${turl.searchUrl(0)}${turl.apikey()}&query=${req.body.searchValue}`;
+    const imageURL = turl.imageURL(1);
+    const searchData = await (await fetch(searchUrl)).json();
+    console.log("searchUrl==", searchUrl);
+    res.render("searchCard", {data: searchData.results, imageURL, pageTitle: req.body.searchValue});
   } catch (err) {
     res.status(404).send(`media type search ERROR :  ${err}`);
   }

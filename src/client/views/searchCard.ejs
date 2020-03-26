@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%-include("head")%>
+  <title>MtB: <%=pageTitle%></title>
+</head>
+<body style="background-color: #02131b;">
+<%-include("nav")%>
+<div class="infoCards">
+  <% data.forEach(el=>{ %>
+    <% if(el.media_type === "movie" || el.media_type === "tv"){ %>
+    <div class="typeMovieTv p-0 mx-auto shadow"
+         style="max-width: 50rem;height:18rem;border-radius: 5px; position: relative;margin-top: 4rem;margin-bottom: 1rem; background-color: #212529">
+      <a href="#" style="text-decoration: none">
+        <div class="p-0 order-1 hoverMediaImage"
+             style="background: url(<%=imageURL+el.poster_path%>); background-size: cover;border-radius: 5px; position: absolute; right: -2rem; top: -2rem; height: 19rem;width: 13rem; box-shadow:-5px 5px 10px 0 rgba(0,0,0,0.75);">
+        </div>
+      </a>
+      <div class=" my-2 order-2" style="position: absolute; right: 9.5rem;width: 40rem">
+        <div class="text-white container" style="max-height: 15.9rem;overflow: hidden">
+          <div class="row">
+            <div class="col-9 order-1">
+              <a href="#" style="text-decoration: none">
+                <h3 class="font-weight-normal text-white" style="font-size: 1.6rem">
+                  <%=el.name || el.title%>
+                </h3></a>
+              <h5 class="text-info ml-2 font-weight-light text-capitalize"><%=el.media_type%></h5>
+            </div>
+            <div class="col-2 order-2 ml-4 px-3">
+              <%-include("ratings",{media:el})%>
+            </div>
+          </div>
+          <div class="text-white-50" style="font-size: 0.9rem">
+            <%=el.release_date || el.first_air_date%>
+          </div>
+          <h6 class="pt-2" style="font-size: 1.1rem">Overview</h6>
+          <p class="mr-5 mb-0 ml-1" style="font-size: 0.96rem">
+            <%=el.overview%></p>
+        </div>
+        <div class="m-0 p-0">
+          <a href="#" class="ml-4 pt-0 text-white row" style="text-decoration: none">. . .
+            <p class="bg-transparent border-0 px-1 font-italic text-white-50">read more
+            </p>
+          </a>
+        </div>
+      </div>
+    </div>
+    <% } else { %>
+    <div class="typeOther p-0 mx-auto shadow"
+         style="max-width: 50rem;height:18rem;border-radius: 5px; position: relative;margin-top: 4rem;margin-bottom: 1rem;background-color: #212529">
+      <a href="#" style="text-decoration: none">
+        <div class="p-0 order-1 hoverMediaImage"
+             style="background: url(<%=imageURL+el.profile_path%>); background-size: cover;border-radius: 5px; position: absolute; left: -2rem; top: -2rem; height: 19rem;width: 13rem; box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.75);">
+        </div>
+      </a>
+      <div class=" my-2 text-white container" style="position: absolute; left: 11.5rem;width: 40rem">
+        <div class=" mr-4">
+          <a href="#" style="text-decoration: none"><h3 class="font-weight-normal text-white text-capitalize">
+              <%=el.name%>
+            </h3></a>
+          <h5 class="text-info ml-2 font-weight-light text-capitalize"><%=el.known_for_department%></h5>
+        </div>
+        <div class="text-white-50" style="font-size: 0.9rem">
+          Known for
+        </div>
+        <div class="row mt-2 mx-0 ">
+          <% el.known_for.forEach(movieTv=>{ %>
+          <a href="#" style="text-decoration: none">
+            <div class="mx-1 hoverSmallImage" title="<%=movieTv.title || movieTv.name%>"
+                 style="background: url(<%=imageURL+movieTv.poster_path%>); background-size: cover;border-radius: 2px; height: 9rem;width: 6rem;"></div>
+          </a>
+          <% }) %>
+        </div>
+        <a href="#" style="text-decoration: none"><p class=" font-italic mt-1 text-white-50">more info</p></a>
+      </div>
+    </div>
+  <% }}) %>
+</div>
+</body>
+</html>

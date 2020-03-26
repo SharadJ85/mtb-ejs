@@ -14,7 +14,7 @@ dotenv.config();
  * @method page: generalFeatures(0) page number
  */
 
-export default class TbdbUrl<T> {
+export default class TmdbApiUrl<T> {
   /**
    * returns baseURL=https://api.themoviedb.org/3/
    */
@@ -29,6 +29,15 @@ export default class TbdbUrl<T> {
   imageURL(imageSize: number): string {
     const size: string[] = ["original", "w500"];
     return `http://image.tmdb.org/t/p/${size[imageSize]}`;
+  }
+
+  /**
+   * returns searchURL="https://api.themoviedb.org/3/search/{type}"
+   * @param type | 0: multi |
+   */
+  searchUrl(type: number): string {
+    const types: string[] = ["multi"];
+    return `https://api.themoviedb.org/3/search/${types[type]}`;
   }
 
   /**

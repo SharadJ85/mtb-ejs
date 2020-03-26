@@ -117,6 +117,22 @@ castcrewoverflow:hover {
    border-radius: 4px;
 }
 
+
+.hoverSmallImage {
+   transition: all 0.4s cubic-bezier(.25, .8, .25, 1);
+   z-index: 0;
+   position: relative;
+}
+
+.hoverSmallImage:hover {
+   -webkit-box-shadow: 0 11px 20px 10px rgba(0, 0, 0, 0.75);
+   -moz-box-shadow: 0 11px 20px 10px rgba(0, 0, 0, 0.75);
+   box-shadow: 0 11px 20px 10px rgba(0, 0, 0, 0.75);
+   transform: scale(2);
+   z-index: 15;
+   border-radius: 4px;
+}
+
 .raise {
    color: #00bbce;
    -webkit-transition: 0.25s;
@@ -135,4 +151,62 @@ castcrewoverflow:hover {
    color: #1CB5E0;
 }
 
+/*Loader*/
+
+.loaderBody {
+   margin: 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+   background-color: #1a1940;
+   background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 153, 212, 0) calc(15% + 100px), rgba(0, 99, 138, 0) calc(85% + 100px), rgba(0, 0, 0, 0.15) 100%);
+}
+
+loaderContainer {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+loaderDiv {
+   width: 1rem;
+   height: 1rem;
+   border-radius: 100%;
+   margin: 0.34rem;
+   background-image: linear-gradient(145deg, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
+   animation: bounce 0.8s 0.5s linear infinite;
+}
+
+.loaderYellow {
+   background-color: #feb60a;
+}
+
+.loaderRed {
+   background-color: #ff0062;
+   animation-delay: -0.05s;
+}
+
+.loaderBlue {
+   background-color: #00dbf9;
+   animation-delay: 0.15s;
+}
+
+.loaderViolet {
+   background-color: #da00f7;
+   animation-delay: 0.3s;
+}
+
+@keyframes bounce {
+   0%, 50%, 100% {
+   }
+   25% {
+      transform: translateY(-0.5rem)
+   }
+   75% {
+      transform: translateY(0.5rem)
+   }
+}
+
+/*loader*/
 

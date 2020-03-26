@@ -1,7 +1,7 @@
 <div class="p-0 container-fluid row" style="max-width: 1280px; height: 433px;margin: auto">
   <div class="p-0 m-0 col container-fluid order-1" style="height: 432px; width: 512px;">
     <a href="/info/<%=(mediaType + `/` + media[0].id)%>" style="text-decoration: none">
-      <div class="p-0 m-0 row bg-info hoverMediaImage"
+      <div class="p-0 m-0 row hoverMediaImage"
            style="height: 288px; width: 512px;background-image: url(<%=imageURL+media[0].backdrop_path%>); background-size: contain;">
         <h3 class="px-2 font-weight-light align-self-end text-white"
             style="text-shadow: 2px 2px 3px rgba(0,0,0,1)"><%=(media[0].title || media[0].name)%></h3>
@@ -9,14 +9,14 @@
     </a>
     <div class="p-0 m-0 row container-fluid" style="height: 144px; width: 512px;">
       <a href="/info/<%=(mediaType + `/` + media[1].id)%>" style="text-decoration: none">
-        <div class="p-0 m-0 col bg-danger hoverMediaImage"
+        <div class="p-0 m-0 col hoverMediaImage"
              style="height: 144px; width: 256px;background-image: url(<%=imageURL+media[1].backdrop_path%>); background-size: contain;">
           <h4 class="px-2 py-1 font-weight-light text-white"
               style="text-shadow: 2px 2px 3px rgba(0,0,0,1)"><%=(media[1].title || media[1].name)%></h4>
         </div>
       </a>
       <a href="/info/<%=(mediaType + `/` + media[2].id)%>" style="text-decoration: none">
-        <div class="p-0 m-0 col bg-success hoverMediaImage"
+        <div class="p-0 m-0 col hoverMediaImage"
              style="height: 144px; width: 256px;background-image: url(<%=imageURL+media[2].backdrop_path%>); background-size: contain;">
           <h4 class="px-2 py-1 font-weight-light text-white"
               style="text-shadow: 2px 2px 3px rgba(0,0,0,1)"><%=(media[2].title || media[2].name)%></h4>
@@ -27,14 +27,14 @@
   <div class="p-0 m-0 col container-fluid order-3" style="height: 432px; width: 512px;">
     <div class="p-0 m-0 row container-fluid" style="height: 144px; width: 512px;">
       <a href="/info/<%=(mediaType + `/` + media[6].id)%>" style="text-decoration: none">
-        <div class="p-0 m-0 col bg-danger hoverMediaImage"
+        <div class="p-0 m-0 col hoverMediaImage"
              style="height: 144px; width: 256px;background-image: url(<%=imageURL+media[6].backdrop_path%>); background-size: contain;">
           <h4 class="px-2 py-1 font-weight-light text-white"
               style="text-shadow: 2px 2px 3px rgba(0,0,0,1)"><%=(media[6].title || media[6].name)%></h4>
         </div>
       </a>
       <a href="/info/<%=(mediaType + `/` + media[7].id)%>" style="text-decoration: none">
-        <div class="p-0 m-0 col bg-success hoverMediaImage"
+        <div class="p-0 m-0 col hoverMediaImage"
              style="height: 144px; width: 256px;background-image: url(<%=imageURL+media[7].backdrop_path%>); background-size: contain;">
           <h4 class="px-2 py-1 font-weight-light text-white"
               style="text-shadow: 2px 2px 3px rgba(0,0,0,1)"><%=(media[7].title || media[7].name)%></h4>
@@ -42,7 +42,7 @@
       </a>
     </div>
     <a href="/info/<%=(mediaType + `/` + media[8].id)%>" style="text-decoration: none">
-      <div class="p-0 m-0 row bg-info hoverMediaImage"
+      <div class="p-0 m-0 row hoverMediaImage"
            style="height: 288px; width: 512px;background-image: url(<%=imageURL+media[8].backdrop_path%>); background-size: contain;">
         <h3 class="px-2 font-weight-light align-self-end text-white"
             style="text-shadow: 2px 2px 3px rgba(0,0,0,1)"><%=(media[8].title || media[8].name)%></h3>
@@ -51,21 +51,21 @@
   </div>
   <div class="p-0 m-0 col container-fluid order-2" style="height: 432px; width: 256px;">
     <a href="/info/<%=(mediaType + `/` + media[3].id)%>" style="text-decoration: none">
-      <div class="p-0 m-0 row bg-light hoverMediaImage"
+      <div class="p-0 m-0 row hoverMediaImage"
            style="height: 144px; width: 256px;background-image: url(<%=imageURL+media[3].backdrop_path%>); background-size: contain;">
         <h4 class="px-2 font-weight-light align-self-end text-white"
             style="text-shadow: 2px 2px 3px rgba(0,0,0,1)"><%=(media[3].title || media[3].name)%></h4>
       </div>
     </a>
     <a href="/info/<%=(mediaType + `/` + media[4].id)%>" style="text-decoration: none">
-      <div class="p-0 m-0 row bg-secondary hoverMediaImage"
+      <div class="p-0 m-0 row hoverMediaImage"
            style="height: 144px; width: 256px;background-image: url(<%=imageURL+media[4].backdrop_path%>); background-size: contain;">
         <h4 class="px-2 font-weight-light align-self-end text-white"
             style="text-shadow: 2px 2px 3px rgba(0,0,0,1)"><%=(media[4].title || media[4].name)%></h4>
       </div>
     </a>
     <a href="/info/<%=(mediaType + `/` + media[5].id)%>" style="text-decoration: none">
-      <div class="p-0 m-0 row bg-warning hoverMediaImage"
+      <div class="p-0 m-0 row hoverMediaImage"
            style="height: 144px; width: 256px;background-image: url(<%=imageURL+media[5].backdrop_path%>); background-size: contain;">
         <h4 class="px-2 font-weight-light align-self-end text-white"
             style="text-shadow: 2px 2px 3px rgba(0,0,0,1)"><%=(media[5].title || media[5].name)%></h4>
