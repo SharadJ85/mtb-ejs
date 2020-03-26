@@ -159,7 +159,7 @@ app.get("/info/:media/:id", async (req: Request, res: Response, next) => {
       reviews: reviewData
     });
   } catch (err) {
-    res.status(404).send(`media type search ERROR :  ${err}`);
+    res.status(404).render("errorPage");
   }
 });
 
@@ -168,11 +168,17 @@ app.get("/info/:media/:id", async (req: Request, res: Response, next) => {
 app.post("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
     console.log("req", req.body.searchValue);
-    const searchUrl = `${turl.searchUrl(0)}${turl.apikey()}&query=${req.body.searchValue}`;
+    const searchUrl = req.params.page
+        ? `${turl.searchUrl(0)}${turl.apikey()}&query=${req.body.searchValue}&page=${req.params.page}`
+        : `${turl.searchUrl(0)}${turl.apikey()}&query=${req.body.searchValue};`;
     const imageURL = turl.imageURL(1);
     const searchData = await (await fetch(searchUrl)).json();
     console.log("searchUrl==", searchUrl);
-    res.render("searchCard", {data: searchData.results, imageURL, pageTitle: req.body.searchValue});
+    res.render("searchCard", {
+      data: searchData.results,
+      imageURL,
+      searchCharacters: req.body.searchValue
+    });
   } catch (err) {
     res.status(404).send(`media type search ERROR :  ${err}`);
   }
