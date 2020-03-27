@@ -1,5 +1,5 @@
 <header class="w-max py-0 ">
-  <nav class="navbar navbar-expand-lg shadow py-2" style="background-color: #0c2233">
+  <nav class="navbar navbar-expand-lg shadow py-2" style="background-color: #0c2233; height: 3.5rem">
     <div class="px-2">
       <a class=" navbar-brand font-weight-bolder text-danger m-0 p-0" href="/">
         <img src="/images/mtb.png" title="The Movie/TV show Database"
@@ -21,85 +21,62 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto px-3">
-        <li class="nav-item">
-          <a class="nav-link text-info text-center font-weight-bold text-uppercase py-0 px-2" href="#">
-            <button type="button"
-                    class="raise font-weight-bold text-uppercase"
-                    data-toggle="collapse"
-                    data-target="#generalTypeMovie" aria-expanded="false" aria-controls="generalTypeMovie">
+      <ul class="navbar-nav mr-auto px-3" style="height: 2.5rem;">
+        <li class="nav-item py-1">
+          <div class="mainDiv" style="position: absolute;width: fit-content;">
+            <div class="raise font-weight-bold text-uppercase parentDiv" style="cursor: default">
               movies
-            </button>
-          </a>
+              <div class="childDiv font-italic font-weight-normal" style="font-size: 0.9rem;">
+                <a href="/movie/popular" style="text-decoration: none"><span class="mx-2 px-2 text-info">Popular</span></a>
+                <a href="/movie/top_rated" style="text-decoration: none"><span
+                          class="px-2 text-info">Top rated</span></a>
+                <a href="/movie/now_playing" style="text-decoration: none"><span
+                          class="px-2 text-info">Now playing</span></a>
+                <a href="/movie/upcoming" style="text-decoration: none"><span
+                          class="px-2 text-info">Upcoming</span></a>
+              </div>
+            </div>
+          </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link py-0 px-2" href="#">
-            <button type="button"
-                    class="raise font-weight-bold text-uppercase"
-                    data-toggle="collapse"
-                    data-target="#generalTypeTv" aria-expanded="false" aria-controls="generalTypeTv">
+        <li class="nav-item py-1">
+          <div class="mainDiv" style="position: absolute;left: 14rem;width: fit-content;">
+            <div class="raise font-weight-bold text-uppercase parentDiv" style="cursor: default">
               tv shows
-            </button>
-          </a>
+              <div class="childDiv font-italic font-weight-normal" style="font-size: 0.9rem">
+                <a href="/tv/popular" style="text-decoration: none"><span class="mx-2 px-2 text-info">Popular</span></a>
+                <a href="/tv/top_rated" style="text-decoration: none"><span class="px-2 text-info">Top rated</span></a>
+                <a href="/tv/on_the_air" style="text-decoration: none"><span
+                          class="px-2 text-info">On Air</span></a>
+                <a href="/tv/airing_today" style="text-decoration: none"><span
+                          class="px-2 text-info">Airing today</span></a>
+              </div>
+            </div>
+          </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link py-0 px-2" href="#">
-            <button type="button"
-                    class="raise font-weight-bold text-uppercase"
-                    data-toggle="collapse"
-                    data-target="#generalTypePerson" aria-expanded="false" aria-controls="generalTypePerson">
+        <li class="nav-item py-1">
+          <div class="mainDiv" style="position: absolute;left: 22rem;width: fit-content;">
+            <div class="raise font-weight-bold text-uppercase parentDiv" style="cursor: default">
               person
-            </button>
-          </a>
+              <div class="childDiv font-italic font-weight-normal" style="font-size: 0.9rem">
+                <a href="/person/popular" style="text-decoration: none">
+                  <span class="mx-2 px-2 text-info">Popular</span></a>
+              </div>
+            </div>
+          </div>
         </li>
       </ul>
-      <div class="collapse" id="generalTypeMovie" style="position: absolute; top: 4rem; left: 9rem; z-index: 5">
-        <div class="card card-body p-0 m-0" style="background-color: #02131b">
-          <ul class="py-1 pl-1 m-0" style="background-color: #02131b">
-            <a href="/movie/popular">
-              <button class="btn btn-sm bg-dark mx-1 text-white">Popular</button>
-            </a>
-            <a href="/movie/top_rated">
-              <button class="btn btn-sm bg-dark mx-1 text-white">Top rated</button>
-            </a>
-            <a href="/movie/now_playing">
-              <button class="btn btn-sm bg-dark mx-1 text-white">Now playing</button>
-            </a>
-            <a href="/movie/upcoming">
-              <button class="btn btn-sm bg-dark mx-1 text-white">Upcoming</button>
-            </a>
-          </ul>
+    </div>
+    <form class="form-inline my-2 my-lg-0" id="searchQuery" action="/" method="post">
+      <div class="input-group">
+        <label for="searchValue">searchValue:</label>
+        <input type="text" name="searchValue" class="form-control" placeholder="Search">
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-secondary">
+            <i class="fas fa-search"></i>
+          </button>
         </div>
       </div>
-      <div class="collapse" id="generalTypeTv" style="position: absolute; top: 4rem; left: 9rem; z-index: 5">
-        <div class="card card-body p-0 m-0" style="background-color: #02131b">
-          <ul class="py-1 pl-1 m-0" style="background-color: #02131b">
-            <a href="/tv/popular">
-              <button class="btn btn-sm bg-dark mx-1 text-white">Popular</button>
-            </a>
-            <a href="/tv/top_rated">
-              <button class="btn btn-sm bg-dark mx-1 text-white">Top rated</button>
-            </a>
-            <a href="/tv/on_the_air">
-              <button class="btn btn-sm bg-dark mx-1 text-white">On Air</button>
-            </a>
-            <a href="/tv/airing_today">
-              <button class="btn btn-sm bg-dark mx-1 text-white">Airing today</button>
-            </a>
-          </ul>
-        </div>
-      </div>
-      <form class="form-inline my-2 my-lg-0" id="searchQuery" action="/" method="post">
-        <div class="input-group">
-          <label for="searchValue">searchValue:</label>
-          <input type="text" name="searchValue" class="form-control" placeholder="Search">
-          <div class="input-group-append">
-            <button type="submit" class="btn btn-secondary">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </div>
-      </form>
+    </form>
     </div>
   </nav>
 </header>

@@ -102,8 +102,6 @@ h3 {
    position: absolute;
    bottom: 0;
    width: 100%;
-   -webkit-transform: translateY(calc(70px + 1em));
-   transform: translateY(calc(70px + 1em));
    -webkit-transition: -webkit-transform 0.3s;
    transition: -webkit-transform 0.3s;
    transition: transform 0.3s;
@@ -111,7 +109,6 @@ h3 {
 }
 
 .mediacard .data .content {
-   padding: 1em;
    position: relative;
    z-index: 1;
 }
@@ -122,14 +119,17 @@ h3 {
 
 .mediacard .title {
    text-shadow: 2px 2px 4px #000000;
-   margin-top: 0px;
+   margin-top: 0;
    font-weight: 300;
 }
 
 .mediacard .text {
    height: 70px;
-   margin: 0;
+   margin: -2px;
    text-shadow: 2px 2px 4px #000000;
+   padding-left: 0.3rem;
+   padding-right: 0.3rem;
+   text-align: start;
    /* white-space: nowrap;
  overflow: hidden;
  text-overflow: ellipsis; */
@@ -152,7 +152,7 @@ h3 {
 
 .poster .header {
    color: #fff;
-   padding: 1em;
+   padding: 1rem;
 }
 
 .poster .header::before,
@@ -183,8 +183,6 @@ h3 {
 .poster .data {
    filter: none;
    color: #fff;
-   -webkit-transform: translateY(calc(70px + 3.5em));
-   transform: translateY(calc(70px + 3.5em));
 }
 
 .poster .title a {
@@ -194,8 +192,8 @@ h3 {
 .poster .button {
    display: block;
    width: 100px;
-   margin: 0.5rem auto 0em;
-   text-align: center;
+   margin: 0.5rem auto 0;
+   text-align: start;
    font-size: 12px;
    color: #fff;
    line-height: 1;
@@ -219,4 +217,9 @@ h3 {
    -webkit-transform: translate(5px, -5%);
    transform: translate(5px, -5%);
    opacity: 1;
+}
+
+.shiftVertically {
+   -webkit-transform: translateY(calc(70px + 3.5rem));
+   transform: translateY(calc(70px + 3.5rem));
 }
