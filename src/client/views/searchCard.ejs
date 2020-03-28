@@ -18,7 +18,7 @@
             <% if(el.poster_path){ %>
             <img src="<%=(imageURL + el.poster_path)%>" alt="" style="height: 19rem;width: 13rem;">
             <% } else{ %>
-              <img src="images/picUnavailable.jpg" alt="unavailable" style="height: 19rem;width: 13rem;">
+              <img src="/images/picUnavailable.jpg" alt="unavailable" style="height: 19rem;width: 13rem;">
             <% } %>
           </div>
         </a>
@@ -64,7 +64,7 @@
             <% if(el.profile_path){ %>
             <img src="<%=(imageURL + el.profile_path)%>" alt="" style=" height: 19rem;width: 13rem;">
             <% } else{ %>
-              <img src="images/picUnavailable.jpg" alt="unavailable" style=" height: 19rem;width: 13rem;">
+              <img src="/images/picUnavailable.jpg" alt="unavailable" style=" height: 19rem;width: 13rem;">
             <% } %>
           </div>
         </a>
@@ -102,5 +102,8 @@
     Unavailable</h3>
 </div>
 <% } %>
+<div class="my-4 py-4">
+  <%-include("pagination",mediaType,generalType,pageid,pages)%>
+</div>
 </body>
 </html>

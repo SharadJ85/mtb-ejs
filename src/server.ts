@@ -98,53 +98,54 @@ while (turl.mediatype(count)) {
 //
 //
 // define a route handler for the default home page
-app.get("/", async (req: Request, res: Response, next) => {
-  try {
-    console.log("-->-->-->-->home");
-    const imageURL = turl.imageURL(0);
-    const tvURL = `${turl.baseURL()}${turl.mediatype(1)}/${turl.generalFeatures(5)}${turl.apikey()}`;
-    const movieURL = `${turl.baseURL()}${turl.mediatype(0)}/${turl.generalFeatures(1)}${turl.apikey()}`;
-    const tvData = await (await fetch(tvURL)).json();
-    const movieData = await (await fetch(movieURL)).json();
-    console.log("-------------------------------");
-    console.log("movieUrl==", movieURL);
-    console.log("-------------------------------");
-    console.log("tvUrl==", tvURL);
-    console.log("-------------------------------");
-    // render the index template
-    res.render("index", {
-      imageURL,
-      tv: tvData.results.slice(0, 9),
-      movie: movieData.results.slice(0, 9)
+app.route("/")
+    .get(async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        console.log("-->-->-->-->home");
+        const imageURL = turl.imageURL(0);
+        const tvURL = `${turl.baseURL()}${turl.mediatype(1)}/${turl.generalFeatures(5)}${turl.apikey()}`;
+        const movieURL = `${turl.baseURL()}${turl.mediatype(0)}/${turl.generalFeatures(1)}${turl.apikey()}`;
+        const tvData = await (await fetch(tvURL)).json();
+        const movieData = await (await fetch(movieURL)).json();
+        console.log("-------------------------------");
+        console.log("movieUrl==", movieURL);
+        console.log("-------------------------------");
+        console.log("tvUrl==", tvURL);
+        console.log("-------------------------------");
+        // render the index template
+        res.render("index", {
+          imageURL,
+          tv: tvData.results.slice(0, 9),
+          movie: movieData.results.slice(0, 9)
+        });
+      } catch (err) {
+        res.status(404).send(`media type search ERROR :  ${err}`);
+      }
+    })
+    .post(async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        res.redirect(`/search/${req.body.searchValue}`)
+      } catch (err) {
+        res.status(404).send(`media type search ERROR :  ${err}`);
+      }
     });
-  } catch (err) {
-    res.status(404).send(`media type search ERROR :  ${err}`);
-  }
-});
-
-
-// multi search
-app.post("/", async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    res.redirect(`/search/${req.body.searchValue}`)
-  } catch (err) {
-    res.status(404).send(`media type search ERROR :  ${err}`);
-  }
-});
 
 
 app.get("/search/:searchQuery/:page?", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log("searchQuery==", req.params.searchQuery);
-    console.log("page==", req.params.page);
-    const searchUrl = `${turl.searchUrl(0)}${turl.apikey()}&query=${req.params.searchQuery}`;
+    console.log("req.params==", req.params);
+    const searchUrl = `${turl.searchUrl(0)}${turl.apikey()}&query=${req.params.searchQuery}&page=${req.params.page || 1}`;
     const imageURL = turl.imageURL(1);
     const searchData = await (await fetch(searchUrl)).json();
     console.log("searchUrl==", searchUrl);
     res.render("searchCard", {
       data: searchData.results,
       imageURL,
-      searchCharacters: req.params.searchQuery
+      searchCharacters: req.params.searchQuery,
+      pageid: searchData.page,
+      pages: searchData.total_pages,
+      mediaType: "search",
+      generalType: req.params.searchQuery,
     });
   } catch (err) {
     res
