@@ -126,20 +126,30 @@ app.get("/", async (req: Request, res: Response, next) => {
 // multi search
 app.post("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log("req", req.body.searchValue);
-    const searchUrl = req.params.page
-        ? `${turl.searchUrl(0)}${turl.apikey()}&query=${req.body.searchValue}&page=${req.params.page}`
-        : `${turl.searchUrl(0)}${turl.apikey()}&query=${req.body.searchValue};`;
+    res.redirect(`/search/${req.body.searchValue}`)
+  } catch (err) {
+    res.status(404).send(`media type search ERROR :  ${err}`);
+  }
+});
+
+
+app.get("/search/:searchQuery/:page?", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    console.log("searchQuery==", req.params.searchQuery);
+    console.log("page==", req.params.page);
+    const searchUrl = `${turl.searchUrl(0)}${turl.apikey()}&query=${req.params.searchQuery}`;
     const imageURL = turl.imageURL(1);
     const searchData = await (await fetch(searchUrl)).json();
     console.log("searchUrl==", searchUrl);
     res.render("searchCard", {
       data: searchData.results,
       imageURL,
-      searchCharacters: req.body.searchValue
+      searchCharacters: req.params.searchQuery
     });
   } catch (err) {
-    res.status(404).send(`media type search ERROR :  ${err}`);
+    res
+        .status(404)
+        .send(`Sorry for the ${status} error, Error type:- ${err}`);
   }
 });
 
@@ -179,13 +189,13 @@ app.get("/info/:media/:id", async (req: Request, res: Response, next) => {
       imageURL,
       videoinfo: videoData.results,
       creditsData,
-      reviews: reviewData
+      reviews: reviewData,
+      mediaType: media
     });
   } catch (err) {
     res.status(404).render("errorPage");
   }
 });
-
 
 // general page
 app.get(
@@ -227,11 +237,3 @@ app.get(
       }
     }
 );
-
-
-// app.get("/genre", async (req: Request, res: Response, next) => {
-//   console.log("-->-->----genre");
-//   const genre: string = turl.baseURL() + turl.genre(1) + turl.apikey();
-//   const fetchData: Response = await (await fetch(genre)).json();
-//   res.json(fetchData);
-// });
