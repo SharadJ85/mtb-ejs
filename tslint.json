@@ -14,7 +14,7 @@
     "radix": false,
     "max-line-length": {
       "options": [
-        120
+        130
       ]
     },
     "member-ordering": false,

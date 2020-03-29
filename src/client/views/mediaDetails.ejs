@@ -203,16 +203,16 @@
 
 <% if(mediaType !== "person") { %>
   <!--videos details-->
-  <% if(videoinfo.length !== 0){ %>
+  <% if(videoInfo.length !== 0){ %>
     <div class="videos " style="background-color: #0a0a0a; ">
 
       <h2 class="pb-2 pt-5 ml-5 text-white">Related Videos</h2>
       <div class="trailers  d-flex justify-content-start"
-      <% if(videoinfo.length > 4){ %>
+      <% if(videoInfo.length > 4){ %>
            style="overflow-x: scroll"
               <% } %>
       >
-        <% videoinfo.forEach(el=>{ %>
+        <% videoInfo .forEach(el=>{ %>
         <div class="px-3 pb-4">
           <div class="m-0 videotumb" style="
               background-size: contain;
@@ -306,7 +306,7 @@
             <div class="tab-pane show active" id="list-cast" role="tabpanel" aria-labelledby="list-cast-list"
                  style="height:22rem">
               <div class="cast" style="max-width: 1150px; min-width: 576px;">
-                <div class="cast castcrewoverflow py-2 d-flex"
+                <div class="cast cast_crew_overflow  py-2 d-flex"
                      style="overflow: scroll; overflow-y:-moz-scrollbars-none;">
 
                   <!-- each cast card -->
@@ -351,7 +351,7 @@
             <div class="tab-pane" id="list-crew" role="tabpanel" aria-labelledby="list-crew-list"
                  style="height:22rem">
               <div class="crew" style="max-width: 1150px; min-width: 576px;">
-                <div class="crew castcrewoverflow py-2 d-flex"
+                <div class="crew cast_crew_overflow  py-2 d-flex"
                      style="overflow: scroll; overflow-y:-moz-scrollbars-none;">
 
                   <!-- each crew card -->

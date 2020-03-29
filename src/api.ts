@@ -81,11 +81,4 @@ export default class TmdbApiUrl<T> {
     const key: any = process.env.API_KEY;
     return ("?api_key=" + key);
   }
-
-  /**
-   * @param page generalFeatures(0) page number
-   */
-  page(page: number = 1): string {
-    return ("&page=" + page);
-  }
 }

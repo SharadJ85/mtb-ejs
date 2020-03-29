@@ -105,13 +105,8 @@ app.route("/")
         const imageURL = turl.imageURL(0);
         const tvURL = `${turl.baseURL()}${turl.mediatype(1)}/${turl.generalFeatures(5)}${turl.apikey()}`;
         const movieURL = `${turl.baseURL()}${turl.mediatype(0)}/${turl.generalFeatures(1)}${turl.apikey()}`;
-        const tvData = await (await fetch(tvURL)).json();
-        const movieData = await (await fetch(movieURL)).json();
-        console.log("-------------------------------");
-        console.log("movieUrl==", movieURL);
-        console.log("-------------------------------");
-        console.log("tvUrl==", tvURL);
-        console.log("-------------------------------");
+        const [fetchTv, fetchMovie] = await Promise.all([tvURL, movieURL].map(el => fetch(el)));
+        const [tvData, movieData] = await Promise.all([fetchTv, fetchMovie].map(el => el.json()));
         // render the index template
         res.render("index", {
           imageURL,
@@ -133,11 +128,10 @@ app.route("/")
 
 app.get("/search/:searchQuery/:page?", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log("req.params==", req.params);
-    const searchUrl = `${turl.searchUrl(0)}${turl.apikey()}&query=${req.params.searchQuery}&page=${req.params.page || 1}`;
+    console.log("-->-->-->-->search query==", req.params.searchQuery);
     const imageURL = turl.imageURL(1);
+    const searchUrl = `${turl.searchUrl(0)}${turl.apikey()}&query=${req.params.searchQuery}&page=${req.params.page || 1}`;
     const searchData = await (await fetch(searchUrl)).json();
-    console.log("searchUrl==", searchUrl);
     res.render("searchCard", {
       data: searchData.results,
       imageURL,
@@ -158,37 +152,20 @@ app.get("/search/:searchQuery/:page?", async (req: Request, res: Response, next:
 // details page
 app.get("/info/:media/:id", async (req: Request, res: Response, next) => {
   try {
+    console.log("-->-->-->-->media info");
     const media = mediaMap.get(req.params.media);
     const imageURL = turl.imageURL(1);
     const id = parseInt(req.params.id) as number;
-    const movieUrl = `${turl.baseURL()}${media}/${id}${turl.apikey()}`;
+    const mediaUrl = `${turl.baseURL()}${media}/${id}${turl.apikey()}`;
     const creditsUrl = `${turl.baseURL()}${media}/${id}/credits${turl.apikey()}`;
     const videoUrl = `${turl.baseURL()}${media}/${id}/videos${turl.apikey()}`;
     const reviewUrl = `${turl.baseURL()}${media}/${id}/reviews${turl.apikey()}`;
-    const dataToBeFetched = [movieUrl, creditsUrl, videoUrl, reviewUrl];
-    const results = await Promise.all(dataToBeFetched);
-    const movieData = await (await fetch(movieUrl)).json();
-    const creditsData = await (await fetch(creditsUrl)).json();
-    const videoData = await (await fetch(videoUrl)).json();
-    const reviewData = await (await fetch(reviewUrl)).json();
-    console.log("-------------------------------");
-    console.log("movieUrl==", movieUrl);
-    console.log("-------------------------------");
-    console.log("creditsUrl==", creditsUrl);
-    console.log("-------------------------------");
-    console.log("reviewUrl==", reviewUrl);
-    console.log("-------------------------------");
-    console.log("videoUrl==", videoUrl);
-    console.log("-------------------------------");
-    console.log("media==", media);
-    console.log("-------------------------------");
-    console.log("id==", id);
-    console.log("-------------------------------");
-
+    const [fetchMedia, fetchCredits, fetchVideo, fetchReview] = await Promise.all([mediaUrl, creditsUrl, videoUrl, reviewUrl].map(dataToBeFetch => fetch(dataToBeFetch)));
+    const [mediaData, creditsData, videoData, reviewData] = await Promise.all([fetchMedia, fetchCredits, fetchVideo, fetchReview].map(el => el.json()));
     res.render("mediaDetails", {
-      media: movieData,
+      media: mediaData,
       imageURL,
-      videoinfo: videoData.results,
+      videoInfo: videoData.results,
       creditsData,
       reviews: reviewData,
       mediaType: media
@@ -203,25 +180,13 @@ app.get(
     "/:media/:generalFeature/:page?",
     async (req: Request, res: Response, next) => {
       try {
-        console.log(turl.generalFeatures.length);
+        console.log("-->-->-->-->general page");
         const gFeature = featureMap.get(req.params.generalFeature);
         const media = mediaMap.get(req.params.media);
         const page = req.params.page;
         const imageURL = turl.imageURL(1);
-        const url: string = req.params.page
-            ? `${turl.baseURL()}${media}/${gFeature}${turl.apikey()}${turl.page(
-                parseInt(req.params.page))}`
-            : `${turl.baseURL()}${media}/${gFeature}${turl.apikey()}`;
+        const url: string = `${turl.baseURL()}${media}/${gFeature}${turl.apikey()}` + (page ? `&page=${page}` : ``);
         const fetchData = await (await fetch(url)).json();
-        console.log("-------------------------------");
-        console.log("URL== " + url);
-        console.log("-------------------------------");
-        console.log("feature==", gFeature);
-        console.log("-------------------------------");
-        console.log("media==", media);
-        console.log("-------------------------------");
-        console.log("page==", page);
-        console.log("-------------------------------");
         res.render("general", {
           allResults: fetchData.results,
           imageURL,

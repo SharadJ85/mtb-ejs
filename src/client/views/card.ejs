@@ -8,11 +8,11 @@
     <div class="data <%=mediaType !== 'person' ? ('shiftVertically') :null%>">
       <div class="content px-2 <%=mediaType !== 'person' ? ('py-3') :null%>">
         <span class="author"><%=media.known_for_department || (media.release_date || media.first_air_date).slice(0, 4)%></span>
-        <a style="text-decoration: none" href="/info/<%=mediaType%>/<%=media.id%>"><h2
-                  class="title text-white"><%=media.title || media.name%>
+        <a style="text-decoration: none;" href="/info/<%=mediaType%>/<%=media.id%>"><h2
+                  class="title text-white pb-2"><%=media.title || media.name%>
           </h2></a>
         <% if(mediaType !== "person"){ %>
-        <p class="text" style="overflow: hidden;height: 5.5rem;"><%=media.overview%></p>
+        <p class="text" style="overflow: hidden;height: 4.7rem;"><%=media.overview%></p>
         <a href="/info/<%=mediaType%>/<%=media.id%>" class="button" style="text-decoration: none">....
           Read more</a>
         <% } %>
