@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%-include("head")%>
+    <title>MtB: <%=type%></title>
+  </head>
+
+  <body style="background-color: #02131b;">
+    <%-include( 'nav')%>
+    <div>
+      <div>
+        <%-include ('generalHeader',{generalHeader:type})%>
+      </div>
+      <div class="main ">
+        <div class="cards d-flex justify-content-around flex-wrap">
+          <% allResults.forEach(el=>{ %>
+          <div class="singleCard m-4 p-4">
+            <%-include('card', {media:el})%>
+          </div>
+          <% }); %>
+        </div>
+        <div class="pagiNation mt-4 p-2 pb-5">
+          <%-include ('pagination',pageid,pages,mediaType,generalType)%>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

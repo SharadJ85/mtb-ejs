@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%-include("head")%>
+  <title>MtB: Home</title>
+</head>
+
+<body style="background-color: #0a0a0a">
+<%-include('nav')%>
+<div class="movieNowPlaying ">
+  <div class="p-0 darkStrip row justify-content-center"
+       style="margin: auto;max-width: 1500px; height: 3rem">
+    <a href="/movie/now_playing" class="mt-2 align-self-center"
+       style="text-decoration: none">
+      <h4 class="text-white font-weight-light" style="letter-spacing: 3px">
+        Movies In Theaters</h4></a>
+  </div>
+  <%-include("imageCollage",{media:movie,imageURL,mediaType:"movie"})%>
+</div>
+<div class="tvAiringToday">
+  <div class="p-0 darkStrip row justify-content-center"
+       style="margin: auto;max-width: 1500px; height: 3rem">
+    <a href="/tv/on_the_air" class="mt-2 align-self-center"
+       style="text-decoration: none">
+      <h4 class="text-white font-weight-light" style="letter-spacing: 3px">
+        TV Shows on Air</h4>
+    </a>
+  </div>
+  <%-include("imageCollage",{media:tv,imageURL,mediaType:"tv"})%>
+</div>
+<div style=" min-height: 8vh;">
+
+</div>
+</body>
+</html>
